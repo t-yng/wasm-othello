@@ -2,11 +2,10 @@ import { AI } from './ai'
 import * as Simulator from '../othello/simulator'
 import { Stone } from '../othello/stone'
 import { Cell } from '../othello/cell'
-import { Player } from '../othello/player';
 
 export default class MinMax extends AI {
   get SEARCH_DEPTH() {
-    return 6
+    return 4
   }
 
   choiceNextPosition(cells: Cell[], stone: Stone) {

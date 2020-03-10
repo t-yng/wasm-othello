@@ -44,25 +44,24 @@ const createHighlightStyle = (props: StyleProps) => css({
 
 export const Cell: FC<CellProps> = ({ idx, cell, player, available, handleClick }) => {
 
-    const renderStone = () => {
-        if (cell === ICell.EMPTY) return undefined;
-
-        const stone = cell === ICell.BLACK ? IStone.BLACK : IStone.WHITE;
-        return <Stone stone={stone} />;
+    const getPutStone = () => {
+        return cell === ICell.BLACK ? IStone.BLACK : IStone.WHITE;
     }
 
-    const renderHighlight = () => {
-        const style = createHighlightStyle({
-            border: available ? `2px solid ${player.stone === IStone.BLACK ? colors.black1 : colors.white}` : undefined,
-        })
+    const getGhostStone = () => {
+        return player.stone;
+    }
 
-        return <div css={style}></div>
+    const renderStone = () => {
+        if (cell === ICell.EMPTY && !available) return undefined;
+
+        let stone = cell !== ICell.EMPTY ? getPutStone() : getGhostStone();
+        return <Stone stone={stone} ghost={available} />;
     }
 
     return (
         <div css={style} onClick={() => handleClick(idx)}>
             {renderStone()}
-            {renderHighlight()}
         </div>
     );
 }
