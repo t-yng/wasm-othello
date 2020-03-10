@@ -5,13 +5,15 @@ import { AI } from '../ai/ai';
 import { getAvailablePositions, canPutStone } from './simulator';
 
 type SwitchPlayer = (player: Player) => void;
+type UpdateBoard = (board: Board) => void;
 
 export class Game {
     private _board: Board;
-    private _player: Player;
+    private _player: Player | AI;
     private _players: (Player | AI)[];
 
     private _onSwithPlayer: SwitchPlayer;
+    private _onUpdateBoard: UpdateBoard;
 
     constructor(players: Player[]) {
         this._board = new Board();
@@ -21,6 +23,7 @@ export class Game {
             player.onSelect((idx: number, stone: Stone) => {
                 if (!canPutStone(this._board.cells, idx, stone)) return;
                 this._board.putStone(idx, stone);
+                if (this._onUpdateBoard) this._onUpdateBoard(this._board);
                 this.switchPlayer();
             });
         });
@@ -34,17 +37,16 @@ export class Game {
         return getAvailablePositions(this._board.cells, this._player.stone);
     }
 
-
     onSwitchPlayer(fn: SwitchPlayer) {
         this._onSwithPlayer = fn;
+    }
+
+    onUpdateBoard(fn: UpdateBoard) {
+        this._onUpdateBoard = fn;
     }
 
     switchPlayer() {
         this._player = this._player === this._players[0] ? this._players[1] : this._players[0];
         if (this._onSwithPlayer != null) this._onSwithPlayer(this._player);
-
-        if (this._player instanceof AI ) {
-            this._player.putStone(this._board.cells, this._player.stone);
-        }
     }
 }

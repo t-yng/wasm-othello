@@ -6,7 +6,7 @@ import { Player } from '../othello/player';
 
 export default class MinMax extends AI {
   get SEARCH_DEPTH() {
-    return 4
+    return 6
   }
 
   choiceNextPosition(cells: Cell[], stone: Stone) {
