@@ -2,6 +2,7 @@
 import { css, jsx } from '@emotion/core';
 import { Stone as IStone } from '../lib/othello/stone';
 import { FC } from 'react';
+import { colors } from '../style/colors';
 
 export interface StoneProps {
     stone: IStone;
@@ -20,7 +21,7 @@ const createStyle = (props: StyleProps) => css({
 
 export const Stone: FC<StoneProps> = ({ stone }) => {
     const style = createStyle({
-        color: stone === IStone.BLACK ? 'black' : 'white',
+        color: stone === IStone.BLACK ? colors.black1 : colors.white,
     });
 
     return <div css={style} />

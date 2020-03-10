@@ -7,12 +7,12 @@ import { Board as IBoard } from '../lib/othello/board';
 import { Cell as ICell } from '../lib/othello/cell';
 
 const style = css({
-    borderTop: '1px solid black',
-    borderRight: '1px solid black',
+    borderTop: '1px solid #222',
+    borderRight: '1px solid #222',
     boxSizing: 'border-box',
     display: 'grid',
     gridTemplateColumns: 'repeat(8, 50px)',
-    width: 400,
+    width: 401,
 });
 
 export interface BoardProps {
