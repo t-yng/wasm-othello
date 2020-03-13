@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import dynamic from 'next/dynamic';
 import { Game } from "../lib/othello/game"
 import { Player } from "../lib/othello/player";
 import { Board } from "./Board";
@@ -14,7 +15,14 @@ const style = css({
     display: 'flex'
 });
 
-export const App = () => {
+export const App = dynamic({
+    loader: async () => {
+        await import('wasm-othello');
+        return AppComponent;
+    }
+})
+
+export const AppComponent =　() => {
     const [game] = useState(new Game());
     const [ player, setPlayer ] = useState(game.player)
     const [cells, setCells] = useState(game.board.cells);
@@ -47,8 +55,7 @@ export const App = () => {
     }
 
     const handleClickCell = (idx: number) => {
-        const player = game.player;
-        player.select(idx);
+        if (game.player) game.player.select(idx);
     }
 
     return(

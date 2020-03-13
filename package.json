@@ -15,6 +15,7 @@
     "next": "^9.2.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "wasm-othello": "./wasm/pkg"
   }
 }
