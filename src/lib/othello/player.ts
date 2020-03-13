@@ -3,7 +3,7 @@ import { Stone } from "./stone";
 type HandleSelect = (idx: number, stone: Stone) => void;
 
 export class Player {
-    private _onSelect: HandleSelect;
+    private _onSelect?: HandleSelect;
     private _stone: Stone;
 
     constructor (stone: Stone) {

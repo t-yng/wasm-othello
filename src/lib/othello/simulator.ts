@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { Cell } from './cell'
 import { Stone } from './stone'
 
@@ -25,9 +24,9 @@ export const canPutStone = (cells: Cell[], index: number, stone: Stone) => {
       return false
     }
 
-    const willFlippedStones = flipStones(cells, index, stone, true)
+    const willFlippedStones = flipStones(cells, index, stone);
 
-    if (willFlippedStones === 0) {
+    if (willFlippedStones.length === 0) {
       return false
     }
 
@@ -38,7 +37,7 @@ export const isGameEnd = (cells: Cell[]) => {
     return cells.includes(Cell.EMPTY) === false
 }
 
-export const flipStones = (cells: Cell[], index: number, stone: Stone, count = false) => {
+export const flipStones = (cells: Cell[], index: number, stone: Stone): Cell[] => {
     let copyCells = cells.concat()
     copyCells[index] = stone
 
@@ -54,13 +53,9 @@ export const flipStones = (cells: Cell[], index: number, stone: Stone, count = f
       RIGHT_DOWN
     ]
 
-    const flipPositions = _.flatMap(directions, (direction) => {
+    const flipPositions = directions.flatMap(direction => {
       return getFlipStonePositions(cells, index, direction, stone, [])
-    })
-
-    if (count) {
-      return flipPositions.length
-    }
+    });
 
     flipPositions.forEach((position) => {
       copyCells[position] = stone
@@ -69,7 +64,7 @@ export const flipStones = (cells: Cell[], index: number, stone: Stone, count = f
     return copyCells
 }
 
-const getFlipStonePositions = (cells: Cell[], position: number, direction: number, stone: Stone, positions = []) => {
+const getFlipStonePositions = (cells: Cell[], position: number, direction: number, stone: Stone, positions: number[] = []): number[] => {
     if (isOutOfBoard(position, direction)) return []
 
     const nextPostion = position + direction
@@ -78,7 +73,7 @@ const getFlipStonePositions = (cells: Cell[], position: number, direction: numbe
     if (cellState === Cell.EMPTY) return []
 
     if (cellState !== stone) {
-      positions.push([nextPostion])
+      positions.push(nextPostion)
       return getFlipStonePositions(cells, nextPostion, direction, stone, positions)
     } else {
       return positions

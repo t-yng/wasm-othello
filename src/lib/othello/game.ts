@@ -10,13 +10,14 @@ type UpdateBoard = (board: Board) => void;
 export class Game {
     private _board: Board;
     private _player?: Player | AI;
-    private _players?: (Player | AI)[];
+    private _players: (Player | AI)[];
 
     private _onSwithPlayer?: SwitchPlayer;
     private _onUpdateBoard?: UpdateBoard;
 
     constructor() {
         this._board = new Board();
+        this._players = [];
     }
 
     get player(): Player | AI | undefined { return this._player }
