@@ -10,7 +10,7 @@ import { colors } from '../style/colors';
 export interface CellProps {
     idx: number;
     cell: ICell;
-    player: Player;
+    player?: Player;
     available: boolean;
     handleClick: (idx: number) => void;
 }
@@ -31,16 +31,6 @@ const style = css({
     height: 50,
     position: 'relative',
 });
-
-const createHighlightStyle = (props: StyleProps) => css({
-    width: 47,
-    height: 47,
-    border: props.border,
-    position: 'absolute',
-    top: -1,
-    left: -1,
-    zIndex: 10,
-})
 
 export const Cell: FC<CellProps> = ({ idx, cell, player, available, handleClick }) => {
 

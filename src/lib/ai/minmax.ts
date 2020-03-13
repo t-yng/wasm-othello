@@ -3,7 +3,7 @@ import * as Simulator from '../othello/simulator'
 import { Stone } from '../othello/stone'
 import { Cell } from '../othello/cell'
 
-export default class MinMax extends AI {
+export class MinMax extends AI {
   get SEARCH_DEPTH() {
     return 4
   }

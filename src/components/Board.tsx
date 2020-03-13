@@ -16,7 +16,7 @@ const style = css({
 });
 
 export interface BoardProps {
-    player: Player;
+    player?: Player;
     cells: ICell[];
     avalableIndexes: number[];
     handleClickCell: (idx: number) => void;

@@ -9,13 +9,24 @@ type UpdateBoard = (board: Board) => void;
 
 export class Game {
     private _board: Board;
-    private _player: Player | AI;
-    private _players: (Player | AI)[];
+    private _player?: Player | AI;
+    private _players?: (Player | AI)[];
 
-    private _onSwithPlayer: SwitchPlayer;
-    private _onUpdateBoard: UpdateBoard;
+    private _onSwithPlayer?: SwitchPlayer;
+    private _onUpdateBoard?: UpdateBoard;
 
-    constructor(players: Player[]) {
+    constructor() {
+        this._board = new Board();
+    }
+
+    get player(): Player | AI | undefined { return this._player }
+    get board() { return this._board }
+    get availableIndexes () {
+        if (this._player == null) return [];
+        return getAvailablePositions(this._board.cells, this._player.stone);
+    }
+
+    start(players: Player[]) {
         this._board = new Board();
         this._players = players;
 
@@ -29,12 +40,6 @@ export class Game {
         });
 
         this._player = this._players[0];
-    }
-
-    get player() { return this._player }
-    get board() { return this._board }
-    get availableIndexes () {
-        return getAvailablePositions(this._board.cells, this._player.stone);
     }
 
     onSwitchPlayer(fn: SwitchPlayer) {
