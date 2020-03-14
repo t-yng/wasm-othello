@@ -13,10 +13,6 @@ export interface CellProps {
     handleClick: (idx: number) => void;
 }
 
-interface StyleProps {
-    border: string;
-}
-
 const style = css({
     background: 'green',
     borderLeft: `1px solid ${colors.black2}`,
