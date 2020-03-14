@@ -2,9 +2,7 @@
 import { FC } from 'react';
 import { css, jsx } from '@emotion/core';
 import { Cell } from './Cell';
-import { Player } from '../lib/othello/player';
-import { Board as IBoard } from '../lib/othello/board';
-import { Cell as ICell } from '../lib/othello/cell';
+import * as othello from '../lib/othello';
 
 const style = css({
     borderTop: '1px solid #222',
@@ -16,8 +14,8 @@ const style = css({
 });
 
 export interface BoardProps {
-    player?: Player;
-    cells: ICell[];
+    player?: othello.Player;
+    cells: othello.Cell[];
     avalableIndexes: number[];
     handleClickCell: (idx: number) => void;
 }

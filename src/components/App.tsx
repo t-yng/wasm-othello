@@ -1,12 +1,10 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { Game } from "../lib/othello/game"
-import { Player } from "../lib/othello/player";
-import { AI } from "../lib/ai/ai";
-import { Board } from "../lib/othello/board";
-import { Board as BoardComponent } from "./Board";
-import { SidePanel } from "./SidePanel";
 import { useState, useEffect } from "react";
+import { css, jsx } from "@emotion/core";
+import * as othello from '../lib/othello';
+import { AI } from "../lib/ai/ai";
+import { Board } from "./Board";
+import { SidePanel } from "./SidePanel";
 
 const style = css({
     maxWidth: 700,
@@ -15,16 +13,16 @@ const style = css({
 });
 
 export const App =　() => {
-    const [game] = useState(new Game());
+    const [game] = useState(new othello.Game());
     const [ player, setPlayer ] = useState(game.player)
     const [cells, setCells] = useState(game.board.cells);
     const [availables, setAvailables] = useState(game.availableIndexes);
 
-    game.onUpdateBoard((board: Board) => {
+    game.onUpdateBoard((board: othello.Board) => {
         setCells(board.cells);
     });
 
-    game.onSwitchPlayer((player: Player) => {
+    game.onSwitchPlayer((player: othello.Player) => {
         setPlayer(player);
         setAvailables([]);
         setTimeout(() => setAvailables(game.availableIndexes), 500);
@@ -39,7 +37,7 @@ export const App =　() => {
         }, 2000);
     }, [player]);
 
-    const onClickStart = (player1: Player|AI, player2: Player|AI) => {
+    const onClickStart = (player1: othello.Player|AI, player2: othello.Player|AI) => {
         game.start([player1, player2]);
         setPlayer(game.player);
         setCells(game.board.cells);
@@ -52,7 +50,7 @@ export const App =　() => {
 
     return(
         <div css={style}>
-            <BoardComponent player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
+            <Board player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
             <SidePanel onClickStart={onClickStart} />
         </div>
     );

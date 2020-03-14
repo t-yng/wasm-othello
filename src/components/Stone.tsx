@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import { Stone as IStone } from '../lib/othello/stone';
 import { FC } from 'react';
+import { css, jsx } from '@emotion/core';
+import * as othello from '../lib/othello';
 import { colors } from '../style/colors';
 
 export interface StoneProps {
-    stone: IStone;
+    stone: othello.Stone;
     ghost: boolean;
 }
 
@@ -24,7 +24,7 @@ const createStyle = (props: StyleProps) => css({
 
 export const Stone: FC<StoneProps> = ({ stone, ghost }) => {
     const style = createStyle({
-        color: stone === IStone.BLACK ? colors.black1 : colors.white,
+        color: stone === othello.Stone.BLACK ? colors.black1 : colors.white,
         opacity: ghost ? 0.4 : 1,
     });
 

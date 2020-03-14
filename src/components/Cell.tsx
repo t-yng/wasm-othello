@@ -1,16 +1,14 @@
 /** @jsx jsx */
+import { FC } from 'react';
 import { css, jsx } from '@emotion/core';
 import { Stone } from './Stone';
-import { Stone as IStone } from '../lib/othello/stone';
-import { FC } from 'react';
-import { Cell as ICell } from '../lib/othello/cell';
-import { Player } from '../lib/othello/player';
+import * as othello from '../lib/othello';
 import { colors } from '../style/colors';
 
 export interface CellProps {
     idx: number;
-    cell: ICell;
-    player?: Player;
+    cell: othello.Cell;
+    player?: othello.Player;
     available: boolean;
     handleClick: (idx: number) => void;
 }
@@ -35,18 +33,18 @@ const style = css({
 export const Cell: FC<CellProps> = ({ idx, cell, player, available, handleClick }) => {
 
     const getPutStone = () => {
-        return cell === ICell.BLACK ? IStone.BLACK : IStone.WHITE;
-    }
-
-    const getGhostStone = () => {
-        return player.stone;
+        return cell === othello.Cell.BLACK ? othello.Stone.BLACK : othello.Stone.WHITE;
     }
 
     const renderStone = () => {
-        if (cell === ICell.EMPTY && !available) return undefined;
+        if (cell !== othello.Cell.EMPTY) {
+            return <Stone stone={getPutStone()} ghost={available} />
+        }
+        if (cell === othello.Cell.EMPTY && available && player != null) {
+            return <Stone stone={player.stone} ghost={available} />
+        }
 
-        let stone = cell !== ICell.EMPTY ? getPutStone() : getGhostStone();
-        return <Stone stone={stone} ghost={available} />;
+        return undefined;
     }
 
     return (

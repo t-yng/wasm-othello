@@ -2,8 +2,7 @@
 import { css, jsx } from "@emotion/core"
 import { useState, FC } from "react";
 import { AI } from "../lib/ai/ai";
-import { Player } from "../lib/othello/player";
-import { Stone } from "../lib/othello/stone";
+import { Player, Stone } from "../lib/othello";
 import { MinMax } from "../lib/ai/minmax";
 
 export interface SidePanelProps {

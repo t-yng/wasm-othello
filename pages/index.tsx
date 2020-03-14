@@ -1,5 +1,5 @@
-import { AppComponent } from '../src/components/App';
+import { AppContainer } from '../src/components/AppContainer';
 
-const Home = () => <AppComponent />;
+const Home = () => <AppContainer />;
 
 export default Home;
