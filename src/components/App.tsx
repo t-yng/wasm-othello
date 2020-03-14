@@ -1,13 +1,12 @@
 /** @jsx jsx */
-import dynamic from 'next/dynamic';
+import { css, jsx } from "@emotion/core";
 import { Game } from "../lib/othello/game"
 import { Player } from "../lib/othello/player";
-import { Board } from "./Board";
-import { useState, useEffect } from "react";
 import { AI } from "../lib/ai/ai";
-import { Board as IBoard } from "../lib/othello/board";
+import { Board } from "../lib/othello/board";
+import { Board as BoardComponent } from "./Board";
 import { SidePanel } from "./SidePanel";
-import { css, jsx } from "@emotion/core";
+import { useState, useEffect } from "react";
 
 const style = css({
     maxWidth: 700,
@@ -15,20 +14,13 @@ const style = css({
     display: 'flex'
 });
 
-export const App = dynamic({
-    loader: async () => {
-        await import('wasm-othello');
-        return AppComponent;
-    }
-})
-
-export const AppComponent =　() => {
+export const App =　() => {
     const [game] = useState(new Game());
     const [ player, setPlayer ] = useState(game.player)
     const [cells, setCells] = useState(game.board.cells);
     const [availables, setAvailables] = useState(game.availableIndexes);
 
-    game.onUpdateBoard((board: IBoard) => {
+    game.onUpdateBoard((board: Board) => {
         setCells(board.cells);
     });
 
@@ -60,8 +52,8 @@ export const AppComponent =　() => {
 
     return(
         <div css={style}>
-            <Board player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
+            <BoardComponent player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
             <SidePanel onClickStart={onClickStart} />
         </div>
-    )
+    );
 }
