@@ -1,9 +1,9 @@
 use wasm_bindgen::prelude::*;
-use serde::{Serialize, Deserialize};
+// use serde::{Serialize, Deserialize};
 
 #[wasm_bindgen]
 #[repr(u8)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Stone {
     BLACK = 1,
     WHITE = 2,
@@ -26,3 +26,4 @@ impl Cell {
         }
     }
 }
+

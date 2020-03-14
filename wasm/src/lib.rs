@@ -1,7 +1,12 @@
 extern crate wasm_bindgen;
 extern crate serde;
 
-mod board;
+#[macro_use]
+extern crate serde_derive;
+
+mod cell;
+pub mod simulator;
+pub mod ai;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
