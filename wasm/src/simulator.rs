@@ -1,6 +1,5 @@
 use crate::cell::Cell;
 use crate::cell::Stone;
-use wasm_bindgen::prelude::*;
 
 struct Direction;
 
@@ -28,9 +27,7 @@ impl Direction {
     }
 }
 
-#[wasm_bindgen]
-pub fn get_available_positions (values: &JsValue, stone: Stone) -> JsValue {
-    let cells: Vec<Cell> = values.into_serde().unwrap();
+pub fn get_available_positions (cells: &Vec<Cell>, stone: Stone) -> Vec<usize> {
     let empty_positions: Vec<usize> = cells.iter()
         .enumerate()
         .filter_map(
@@ -43,16 +40,14 @@ pub fn get_available_positions (values: &JsValue, stone: Stone) -> JsValue {
 
     let available_positions: Vec<usize> = empty_positions.into_iter()
         .filter(
-            |&position| can_put_stone(values, position, stone)
+            |&position| can_put_stone(cells, position, stone)
         )
         .collect();
 
-    JsValue::from_serde(&available_positions).unwrap()
+    available_positions
 }
 
-#[wasm_bindgen]
-pub fn can_put_stone (values: &JsValue, position: usize, stone: Stone) -> bool {
-    let cells: Vec<Cell> = values.into_serde().unwrap();
+pub fn can_put_stone (cells: &Vec<Cell>, position: usize, stone: Stone) -> bool {
     let cell = cells[position];
 
     if cell != Cell::EMPTY {

@@ -3,10 +3,6 @@ import { Player } from './player';
 import { Board } from "./board";
 import { AI } from '../ai/ai';
 import { getAvailablePositions, canPutStone } from './simulator';
-import {
-    get_available_positions as wasmGetAvailablePositions,
-    can_put_stone as wasmCanPutStone
-} from 'wasm-othello';
 
 type SwitchPlayer = (player: Player) => void;
 type UpdateBoard = (board: Board) => void;
@@ -33,12 +29,7 @@ export class Game {
     get board() { return this._board }
     get availableIndexes () {
         if (this._player == null) return [];
-
-        switch(this._mode) {
-            case 'js': return getAvailablePositions(this._board.cells, this._player.stone);
-            case 'wasm': return wasmGetAvailablePositions(this._board.cells, this._player.stone);
-        }
-
+        return getAvailablePositions(this._board.cells, this._player.stone);
     }
 
     start(players: Player[]) {
@@ -47,8 +38,7 @@ export class Game {
 
         this._players.forEach((player) => {
             player.onSelect((idx: number, stone: Stone) => {
-                if (this._mode === 'js' && !canPutStone(this._board.cells, idx, stone)) return;
-                if (this._mode === 'wasm' && !wasmCanPutStone(this._board.cells, idx, stone)) return;
+                if (!canPutStone(this._board.cells, idx, stone)) return;
 
                 this._board.putStone(idx, stone);
                 if (this._onUpdateBoard) this._onUpdateBoard(this._board);

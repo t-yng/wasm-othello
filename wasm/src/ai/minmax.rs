@@ -5,19 +5,26 @@ use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub struct MinMax {
-    pub search_depth: i8
+    pub level: usize
 }
 
 #[wasm_bindgen]
 impl MinMax {
+    #[wasm_bindgen(constructor)]
+    pub fn new(level: usize) -> MinMax {
+        MinMax {
+            level: level,
+        }
+    }
+
     pub fn choice_next_position(&self, values: JsValue, stone: Stone) -> i8 {
         let cells: Vec<Cell> = values.into_serde().unwrap();
-        let available_idxes: Vec<usize> = get_available_positions(&values, stone).into_serde().unwrap();
+        let available_idxes: Vec<usize> = get_available_positions(&cells, stone);
 
         let mut max_score = i32::min_value();
         let mut next_idx: Option<usize> = None;
         for idx in available_idxes {
-            let score = MinMax::score_next_idx(&cells, stone, stone, idx, self.search_depth - 1);
+            let score = MinMax::score_next_idx(&cells, stone, stone, idx, self.level - 1);
             if score > max_score {
                 max_score = score;
                 next_idx = Some(idx);
@@ -33,16 +40,15 @@ impl MinMax {
     /**
      * 盤面における打ち手の得点を計算する
      */
-    fn score_next_idx(cells: &Vec<Cell>, player: Stone, stone: Stone, idx: usize, depth: i8) -> i32 {
+    fn score_next_idx(cells: &Vec<Cell>, player: Stone, stone: Stone, idx: usize, depth: usize) -> i32 {
         let next_cells = flip_stones(cells, idx, stone);
-        let next_cells_jsvalue = JsValue::from_serde(&next_cells).unwrap();
 
         if depth == 0 {
             return MinMax::evaluate(&next_cells, stone);
         }
 
         let next_stone = if stone == Stone::WHITE { Stone::BLACK } else { Stone::WHITE };
-        let available_idxes: Vec<usize> = get_available_positions(&next_cells_jsvalue, next_stone).into_serde().unwrap();
+        let available_idxes: Vec<usize> = get_available_positions(&next_cells, next_stone);
 
         // 打つ場所が無い時は探索を打ち切り盤面の評価得点を返す
         if available_idxes.len() == 0 {
