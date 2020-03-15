@@ -4,10 +4,13 @@ import { useState, FC } from "react";
 import { AI } from "../lib/ai/ai";
 import { Player, Stone } from "../lib/othello";
 import { MinMax } from "../lib/ai/minmax";
+import { WasmMinMax } from "../lib/ai/wasmMinmax";
 
 export interface SidePanelProps {
     onClickStart: (player1: Player|AI, player2: Player|AI) => void;
 }
+
+type PlayerType = 'human' | 'minmax' | 'wasm';
 
 const style = css({
     backgroundColor: '#EAE6E5',
@@ -19,9 +22,12 @@ const style = css({
 
  export const SidePanel: FC<SidePanelProps> = ({onClickStart}) => {
 
-    const [playerType, setPlayerType] = useState({
-        black: "human",
-        white: "human",
+    const [playerType, setPlayerType] = useState<{
+        black: PlayerType,
+        white: PlayerType,
+    }>({
+        black: 'human',
+        white: 'human',
     });
 
     const handleSelectChange = (color: 'black'|'white') =>
@@ -32,9 +38,17 @@ const style = css({
             });
     }
 
+    const getPlayer = (stone: Stone, type: PlayerType) => {
+        switch(type) {
+            case 'human': return new Player(stone);
+            case 'minmax': return new MinMax(stone);
+            case 'wasm': return new WasmMinMax(stone);
+        }
+    }
+
     const handleClickStart = () => {
-        const player1 = playerType.black === 'human' ? new Player(Stone.BLACK) : new MinMax(Stone.BLACK);
-        const player2 = playerType.white === 'human' ? new Player(Stone.WHITE) : new MinMax(Stone.WHITE);
+        const player1 = getPlayer(Stone.BLACK, playerType.black);
+        const player2 = getPlayer(Stone.WHITE, playerType.white);
         onClickStart(player1, player2);
     }
 
@@ -46,6 +60,7 @@ const style = css({
                     <select value={playerType.black} onChange={handleSelectChange('black')}>
                         <option value="human">人間</option>
                         <option value="minmax">ミニマックス君</option>
+                        <option value="wasm">wasm</option>
                     </select>
                 </div>
                 <div>
@@ -53,6 +68,7 @@ const style = css({
                     <select value={playerType.white} onChange={handleSelectChange('white')}>
                         <option value="human">人間</option>
                         <option value="minmax">ミニマックス君</option>
+                        <option value="wasm">wasm</option>
                     </select>
                 </div>
                 <div><button onClick={handleClickStart}>ゲーム開始</button></div>
