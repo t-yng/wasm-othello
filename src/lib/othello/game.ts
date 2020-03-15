@@ -2,28 +2,32 @@ import { Stone } from "./stone";
 import { Player } from './player';
 import { Board } from "./board";
 import { AI } from '../ai/ai';
-import { getAvailablePositions, canPutStone } from './simulator';
+import { getAvailablePositions, canPutStone, isGameEnd } from './simulator';
 
+export type GameResult = {
+    draw: boolean,
+    winner?: Player,
+    looser?: Player,
+    blackCount: number,
+    whiteCount: number,
+}
 type SwitchPlayer = (player: Player) => void;
 type UpdateBoard = (board: Board) => void;
-type Mode = 'js' | 'wasm';
+type GameEnd = (result: GameResult) => void;
 
 export class Game {
-    private _mode: Mode;
     private _board: Board;
     private _player?: Player | AI;
     private _players: (Player | AI)[];
 
     private _onSwithPlayer?: SwitchPlayer;
     private _onUpdateBoard?: UpdateBoard;
+    private _onGameEnd?: GameEnd;
 
     constructor() {
-        this._mode = 'js';
         this._board = new Board();
         this._players = [];
     }
-
-    set mode(mode: Mode) { this._mode = mode; }
 
     get player(): Player | AI | undefined { return this._player }
     get board() { return this._board }
@@ -42,6 +46,14 @@ export class Game {
 
                 this._board.putStone(idx, stone);
                 if (this._onUpdateBoard) this._onUpdateBoard(this._board);
+
+                if (isGameEnd(this._board.cells)) {
+                    setTimeout(() => {
+                        if (this._onGameEnd) this._onGameEnd(this.judgeResult());
+                    }, 0);
+                    return;
+                }
+
                 this.switchPlayer();
             });
         });
@@ -57,6 +69,10 @@ export class Game {
         this._onUpdateBoard = fn;
     }
 
+    onGameEnd(fn: GameEnd) {
+        this._onGameEnd = fn;
+    }
+
     switchPlayer() {
         this._player = this._player === this._players[0] ? this._players[1] : this._players[0];
         if (this.availableIndexes.length === 0) {
@@ -64,6 +80,31 @@ export class Game {
         }
         if (this._onSwithPlayer != null) {
             this._onSwithPlayer(this._player);
+        }
+    }
+
+    private judgeResult(): GameResult {
+        const blackCount = this._board.cells.filter(cell => cell as number === Stone.BLACK as number).length;
+        let draw = false;
+        let winner: Player | undefined;
+        let looser: Player | undefined;
+
+        if (blackCount === 32) {
+            draw = true
+        } else if (blackCount > 32) {
+            winner = this._players[0];
+            looser = this._players[1];
+        } else if (blackCount < 32) {
+            winner = this._players[1];
+            looser = this._players[0];
+        }
+
+        return {
+            draw,
+            winner,
+            looser,
+            blackCount,
+            whiteCount: 64 - blackCount,
         }
     }
 }

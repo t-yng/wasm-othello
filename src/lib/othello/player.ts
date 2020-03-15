@@ -10,7 +10,13 @@ export class Player {
         this._stone = stone;
     }
 
-    get stone() { return this._stone }
+    get stone(): Stone {
+        return this._stone
+    }
+
+    get soneColor(): string {
+        return this._stone === Stone.BLACK ? '黒' : '白';
+    }
 
     select(idx: number) {
         if (this._onSelect == null) return;

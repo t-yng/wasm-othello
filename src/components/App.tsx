@@ -28,6 +28,21 @@ export const App =　() => {
         setTimeout(() => setAvailables(game.availableIndexes), 500);
     });
 
+    game.onGameEnd((result: othello.GameResult) => {
+        setAvailables([]);
+        if (result.draw) {
+            alert('引き分け');
+            return;
+        }
+
+        if (result.winner == null || result.looser == null) {
+            alert('エラーが発生しました');
+            return;
+        }
+
+        alert(`${result.winner.soneColor}の勝ちです！\n黒: ${result.blackCount} vs 白: ${result.whiteCount}`);
+    });
+
     useEffect(() => {
         // CPUの思考待ちで描画がブロックされるので非同期で実行
         setTimeout(() => {
