@@ -59,6 +59,11 @@ export class Game {
 
     switchPlayer() {
         this._player = this._player === this._players[0] ? this._players[1] : this._players[0];
-        if (this._onSwithPlayer != null) this._onSwithPlayer(this._player);
+        if (this.availableIndexes.length === 0) {
+            this.switchPlayer();
+        }
+        if (this._onSwithPlayer != null) {
+            this._onSwithPlayer(this._player);
+        }
     }
 }
