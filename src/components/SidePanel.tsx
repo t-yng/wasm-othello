@@ -30,6 +30,11 @@ const style = css({
         white: 'human',
     });
 
+    const [level, setLevel] = useState({
+        black: 3,
+        white: 3,
+    })
+
     const handleSelectChange = (color: 'black'|'white') =>
         (e: React.ChangeEvent<HTMLSelectElement>) => {
             setPlayerType({
@@ -38,17 +43,17 @@ const style = css({
             });
     }
 
-    const getPlayer = (stone: Stone, type: PlayerType) => {
+    const getPlayer = (stone: Stone, type: PlayerType, level: number = 3) => {
         switch(type) {
             case 'human': return new Player(stone);
-            case 'minmax': return new MinMax(stone);
-            case 'wasm': return new WasmMinMax(stone);
+            case 'minmax': return new MinMax(stone, level);
+            case 'wasm': return new WasmMinMax(stone, level);
         }
     }
 
     const handleClickStart = () => {
-        const player1 = getPlayer(Stone.BLACK, playerType.black);
-        const player2 = getPlayer(Stone.WHITE, playerType.white);
+        const player1 = getPlayer(Stone.BLACK, playerType.black, level.black);
+        const player2 = getPlayer(Stone.WHITE, playerType.white, level.white);
         onClickStart(player1, player2);
     }
 
@@ -62,6 +67,20 @@ const style = css({
                         <option value="minmax">ミニマックス君</option>
                         <option value="wasm">wasm</option>
                     </select>
+
+                    {playerType.black !== 'human' && (
+                        <>
+                            <span>レベル: </span>
+                            <select value={level.black} onChange={(e) => setLevel({...level, black: Number(e.target.value)})}>
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                                <option value={6}>6</option>
+                            </select>
+                        </>
+                    )}
                 </div>
                 <div>
                     <span>白: </span>
@@ -70,6 +89,20 @@ const style = css({
                         <option value="minmax">ミニマックス君</option>
                         <option value="wasm">wasm</option>
                     </select>
+
+                    {playerType.white !== 'human' && (
+                        <>
+                            <span>レベル: </span>
+                            <select value={level.white} onChange={(e) => setLevel({...level, white: Number(e.target.value)})}>
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                                <option value={6}>6</option>
+                            </select>
+                        </>
+                    )}
                 </div>
                 <div><button onClick={handleClickStart}>ゲーム開始</button></div>
             </div>

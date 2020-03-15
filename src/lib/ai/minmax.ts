@@ -4,17 +4,13 @@ import { Stone } from '../othello/stone'
 import { Cell } from '../othello/cell'
 
 export class MinMax extends AI {
-  get SEARCH_DEPTH() {
-    return 4
-  }
-
   choiceNextPosition(cells: Cell[], stone: Stone) {
     const availablePositions = Simulator.getAvailablePositions(cells, stone)
 
     let maxScore = Number.NEGATIVE_INFINITY
     let nextPosition = -1
     for(let position of availablePositions) {
-      const score = this.scoreNextPosition(cells, stone, stone, position, this.SEARCH_DEPTH -1 )
+      const score = this.scoreNextPosition(cells, stone, stone, position, this._level -1 )
       if(score > maxScore) {
         maxScore = score
         nextPosition = position
