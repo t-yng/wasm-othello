@@ -14,7 +14,7 @@ export class MinMax extends AI {
     let maxScore = Number.NEGATIVE_INFINITY
     let nextPosition = -1
     for(let position of availablePositions) {
-      const score = this.scoreNextPosition(cells, stone, stone, position, this.SEARCH_DEPTH - 1)
+      const score = this.scoreNextPosition(cells, stone, stone, position, this.SEARCH_DEPTH -1 )
       if(score > maxScore) {
         maxScore = score
         nextPosition = position
@@ -77,38 +77,38 @@ export class MinMax extends AI {
     }
 
     // 自分の石が角にある
-    score += (cells[0]  as number === stone as number) ? 200 : 0
-    score += (cells[7]  as number === stone as number) ? 200 : 0
-    score += (cells[56]  as number === stone as number) ? 200 : 0
-    score += (cells[63]  as number === stone as number) ? 200 : 0
+    score += ( cells[0] !== Cell.EMPTY && cells[0] as number === stone as number) ? 500 : 0
+    score += ( cells[7] !== Cell.EMPTY && cells[7] as number === stone as number) ? 500 : 0
+    score += ( cells[56] !== Cell.EMPTY && cells[56] as number === stone as number) ? 500 : 0
+    score += ( cells[63] !== Cell.EMPTY && cells[63] as number === stone as number) ? 500 : 0
 
     // 相手の石が角にある
-    score += (cells[0]  as number !== stone as number) ? -200 : 0
-    score += (cells[7]  as number !== stone as number) ? -200 : 0
-    score += (cells[56]  as number !== stone as number) ? -200 : 0
-    score += (cells[63]  as number !== stone as number) ? -200 : 0
+    score += ( cells[0] !== Cell.EMPTY && cells[0] as number !== stone as number) ? -500 : 0
+    score += ( cells[7] !== Cell.EMPTY && cells[7] as number !== stone as number) ? -500 : 0
+    score += ( cells[56] !== Cell.EMPTY && cells[56] as number !== stone as number) ? -500 : 0
+    score += ( cells[63] !== Cell.EMPTY && cells[63] as number !== stone as number) ? -500 : 0
 
     // 角の上下に石がある
-    score += (cells[1]  as number === stone as number) ? -30 : 0
-    score += (cells[6]  as number === stone as number) ? -30 : 0
-    score += (cells[8]  as number === stone as number) ? -30 : 0
-    score += (cells[15]  as number === stone as number) ? -30 : 0
-    score += (cells[48]  as number === stone as number) ? -30 : 0
-    score += (cells[55]  as number === stone as number) ? -30 : 0
-    score += (cells[57]  as number === stone as number) ? -30 : 0
-    score += (cells[62]  as number === stone as number) ? -30 : 0
+    score += ( cells[1] !== Cell.EMPTY && cells[1] as number === stone as number) ? -30 : 0
+    score += ( cells[6] !== Cell.EMPTY && cells[6] as number === stone as number) ? -30 : 0
+    score += ( cells[8] !== Cell.EMPTY && cells[8] as number === stone as number) ? -30 : 0
+    score += ( cells[15] !== Cell.EMPTY && cells[15] as number === stone as number) ? -30 : 0
+    score += ( cells[48] !== Cell.EMPTY && cells[48] as number === stone as number) ? -30 : 0
+    score += ( cells[55] !== Cell.EMPTY && cells[55] as number === stone as number) ? -30 : 0
+    score += ( cells[57] !== Cell.EMPTY && cells[57] as number === stone as number) ? -30 : 0
+    score += ( cells[62] !== Cell.EMPTY && cells[62] as number === stone as number) ? -30 : 0
 
     // 自分の石が角の斜めにある
-    score += (cells[9]  as number === stone as number) ? -100 : 0
-    score += (cells[14]  as number === stone as number) ? -100 : 0
-    score += (cells[49]  as number === stone as number) ? -100 : 0
-    score += (cells[54]  as number === stone as number) ? -100 : 0
+    score += ( cells[9] !== Cell.EMPTY && cells[9] as number === stone as number) ? -100 : 0
+    score += ( cells[14] !== Cell.EMPTY && cells[14] as number === stone as number) ? -100 : 0
+    score += ( cells[49] !== Cell.EMPTY && cells[49] as number === stone as number) ? -100 : 0
+    score += ( cells[54] !== Cell.EMPTY && cells[54] as number === stone as number) ? -100 : 0
 
     // 相手の石が角の斜めにある
-    score += (cells[9]  as number !== stone as number) ? 100 : 0
-    score += (cells[14]  as number !== stone as number) ? 100 : 0
-    score += (cells[49]  as number !== stone as number) ? 100 : 0
-    score += (cells[54]  as number !== stone as number) ? 100 : 0
+    score += ( cells[9] !== Cell.EMPTY && cells[9] as number !== stone as number) ? 100 : 0
+    score += ( cells[14] !== Cell.EMPTY && cells[14] as number !== stone as number) ? 100 : 0
+    score += ( cells[49] !== Cell.EMPTY && cells[49] as number !== stone as number) ? 100 : 0
+    score += ( cells[54] !== Cell.EMPTY && cells[54] as number !== stone as number) ? 100 : 0
 
     return score
   }

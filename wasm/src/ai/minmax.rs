@@ -66,7 +66,7 @@ impl MinMax {
          } else {
             let mut min_score = i32::max_value();
             for idx in available_idxes {
-                let score = MinMax::score_next_idx(&next_cells, player, stone, idx, depth - 1);
+                let score = MinMax::score_next_idx(&next_cells, player, next_stone, idx, depth - 1);
                 min_score = if score < min_score { score } else { min_score };
             }
 
@@ -84,45 +84,45 @@ impl MinMax {
         score += if empty_count > 32 {
             // 中盤までは石の数を少なく取るようにする
             // 相手の石が多い方が得点が高い
-            cells.iter().filter(|&&cell| cell as i8 != stone as i8).collect::<Vec<&Cell>>().len() as i32
+            cells.iter().filter(|&&cell| cell as i8 != stone as i8).collect::<Vec<&Cell>>().len() as i32 * 10
         } else {
            // 後半はたくさん石を取れるようにする
-            cells.iter().filter(|&&cell| cell as i8 == stone as i8).collect::<Vec<&Cell>>().len() as i32
+            cells.iter().filter(|&&cell| cell as i8 == stone as i8).collect::<Vec<&Cell>>().len() as i32 * 10
         };
 
         // 自分の石が角にある
-        score += if cells[0] as i8 == stone as i8 { 200 } else { 0 };
-        score += if cells[7] as i8 == stone as i8 { 200 } else { 0 };
-        score += if cells[56] as i8 == stone as i8 { 200 } else { 0 };
-        score += if cells[63] as i8 == stone as i8 { 200 } else { 0 };
+        score += if cells[0] != Cell::EMPTY && cells[0] as i8 == stone as i8 { 500 } else { 0 };
+        score += if cells[7] != Cell::EMPTY && cells[7] as i8 == stone as i8 { 500 } else { 0 };
+        score += if cells[56] != Cell::EMPTY && cells[56] as i8 == stone as i8 { 500 } else { 0 };
+        score += if cells[63] != Cell::EMPTY && cells[63] as i8 == stone as i8 { 500 } else { 0 };
 
         // 相手の石が角にある
-        score += if cells[0] as i8 != stone as i8 { -200 } else { 0 };
-        score += if cells[7] as i8 != stone as i8 { -200 } else { 0 };
-        score += if cells[56] as i8 != stone as i8 { -200 } else { 0 };
-        score += if cells[63] as i8 != stone as i8 { -200 } else { 0 };
+        score += if cells[0] != Cell::EMPTY && cells[0] as i8 != stone as i8 { -500 } else { 0 };
+        score += if cells[7] != Cell::EMPTY && cells[7] as i8 != stone as i8 { -500 } else { 0 };
+        score += if cells[56] != Cell::EMPTY && cells[56] as i8 != stone as i8 { -500 } else { 0 };
+        score += if cells[63] != Cell::EMPTY && cells[63] as i8 != stone as i8 { -500 } else { 0 };
 
         // 角の上下に石がある
-        score += if cells[1] as i8 == stone as i8 { -30 } else { 0 };
-        score += if cells[6] as i8 == stone as i8 { -30 } else { 0 };
-        score += if cells[8] as i8 == stone as i8 { -30 } else { 0 };
-        score += if cells[15] as i8 == stone as i8 { -30 } else { 0 };
-        score += if cells[48] as i8 == stone as i8 { -30 } else { 0 };
-        score += if cells[55] as i8 == stone as i8 { -30 } else { 0 };
-        score += if cells[57] as i8 == stone as i8 { -30 } else { 0 };
-        score += if cells[62] as i8 == stone as i8 { -30 } else { 0 };
+        score += if cells[1] != Cell::EMPTY && cells[1] as i8 == stone as i8 { -30 } else { 0 };
+        score += if cells[6] != Cell::EMPTY && cells[6] as i8 == stone as i8 { -30 } else { 0 };
+        score += if cells[8] != Cell::EMPTY && cells[8] as i8 == stone as i8 { -30 } else { 0 };
+        score += if cells[15] != Cell::EMPTY && cells[15] as i8 == stone as i8 { -30 } else { 0 };
+        score += if cells[48] != Cell::EMPTY && cells[48] as i8 == stone as i8 { -30 } else { 0 };
+        score += if cells[55] != Cell::EMPTY && cells[55] as i8 == stone as i8 { -30 } else { 0 };
+        score += if cells[57] != Cell::EMPTY && cells[57] as i8 == stone as i8 { -30 } else { 0 };
+        score += if cells[62] != Cell::EMPTY && cells[62] as i8 == stone as i8 { -30 } else { 0 };
 
         // 自分の石が角の斜めにある
-        score += if cells[9] as i8 == stone as i8 { -100 } else { 0 };
-        score += if cells[14] as i8 == stone as i8 { -100 } else { 0 };
-        score += if cells[49] as i8 == stone as i8 { -100 } else { 0 };
-        score += if cells[54] as i8 == stone as i8 { -100 } else { 0 };
+        score += if cells[9] != Cell::EMPTY && cells[9] as i8 == stone as i8 { -400 } else { 0 };
+        score += if cells[14] != Cell::EMPTY && cells[14] as i8 == stone as i8 { -400 } else { 0 };
+        score += if cells[49] != Cell::EMPTY && cells[49] as i8 == stone as i8 { -400 } else { 0 };
+        score += if cells[54] != Cell::EMPTY && cells[54] as i8 == stone as i8 { -400 } else { 0 };
 
         // 相手の石が角の斜めにある
-        score += if cells[9] as i8 != stone as i8 { 100 } else { 0 };
-        score += if cells[14] as i8 != stone as i8 { 100 } else { 0 };
-        score += if cells[49] as i8 != stone as i8 { 100 } else { 0 };
-        score += if cells[54] as i8 != stone as i8 { 100 } else { 0 };
+        score += if cells[9] != Cell::EMPTY && cells[9] as i8 != stone as i8 { 400 } else { 0 };
+        score += if cells[14] != Cell::EMPTY && cells[14] as i8 != stone as i8 { 400 } else { 0 };
+        score += if cells[49] != Cell::EMPTY && cells[49] as i8 != stone as i8 { 400 } else { 0 };
+        score += if cells[54] != Cell::EMPTY && cells[54] as i8 != stone as i8 { 400 } else { 0 };
 
         score
     }

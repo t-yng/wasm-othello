@@ -5,7 +5,7 @@ import { Cell, Stone } from '../othello';
 export class WasmMinMax extends AI {
     private _minmax: MinMax;
 
-    constructor(stone: Stone, level: number = 4) {
+    constructor(stone: Stone, level: number = 6) {
         super(stone);
         this._minmax = new MinMax(level);
     }
