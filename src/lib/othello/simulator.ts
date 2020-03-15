@@ -10,11 +10,24 @@ const LEFT_DOWN = 7
 const DOWN = 8
 const RIGHT_DOWN = 9
 
+// 石を反転させる方向
+const directions = [
+  LEFT_UP,
+  UP,
+  RIGHT_UP,
+  LEFT,
+  RIGHT,
+  LEFT_DOWN,
+  DOWN,
+  RIGHT_DOWN
+];
+
 export const getAvailablePositions = (cells: Cell[], stone: Stone) => {
     const emptyPositions = cells
       .map((cell, index) => (cell === Cell.EMPTY) ? index : -1)
       .filter((value) => value >= 0)
     const avaliablePositions = emptyPositions.filter((index) => canPutStone(cells, index, stone))
+
     return avaliablePositions
 }
 
@@ -24,13 +37,11 @@ export const canPutStone = (cells: Cell[], index: number, stone: Stone) => {
       return false
     }
 
-    const willFlippedStones = flipStones(cells, index, stone);
+    const flipPositions = directions.flatMap(direction => {
+      return getFlipStonePositions(cells, index, direction, stone, []);
+    });
 
-    if (willFlippedStones.length === 0) {
-      return false
-    }
-
-    return true
+    return flipPositions.length > 0;
 }
 
 export const isGameEnd = (cells: Cell[]) => {
@@ -40,18 +51,6 @@ export const isGameEnd = (cells: Cell[]) => {
 export const flipStones = (cells: Cell[], index: number, stone: Stone): Cell[] => {
     let copyCells = cells.concat()
     copyCells[index] = stone
-
-    // 石を反転させる方向
-    let directions = [
-      LEFT_UP,
-      UP,
-      RIGHT_UP,
-      LEFT,
-      RIGHT,
-      LEFT_DOWN,
-      DOWN,
-      RIGHT_DOWN
-    ]
 
     const flipPositions = directions.flatMap(direction => {
       return getFlipStonePositions(cells, index, direction, stone, [])
