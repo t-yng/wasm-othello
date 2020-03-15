@@ -62,7 +62,9 @@ pub fn can_put_stone (cells: &Vec<Cell>, position: usize, stone: Stone) -> bool 
 
 pub fn flip_stones (cells: &Vec<Cell>, position: usize, stone: Stone) -> Vec<Cell> {
     let flipped_positions = get_flipped_positions(&cells, position, stone);
+
     let mut clone_cells = cells.clone();
+    clone_cells[position] = Cell::from_stone(stone);
     for &flipped_position in flipped_positions.iter() {
         clone_cells[flipped_position] = Cell::from_stone(stone);
     }
@@ -138,225 +140,184 @@ fn is_out_of_board (position: usize, direction: i8) -> bool {
     }
 }
 
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-//     // Initialized Cells
-//     // let cells = vec![
-//     //     [0, 0, 0, 0, 0, 0, 0, 0],
-//     //     [0, 0, 0, 0, 0, 0, 0, 0],
-//     //     [0, 0, 0, 0, 0, 0, 0, 0],
-//     //     [0, 0, 0, 1, 2, 0, 0, 0],
-//     //     [0, 0, 0, 2, 1, 0, 0, 0],
-//     //     [0, 0, 0, 0, 0, 0, 0, 0],
-//     //     [0, 0, 0, 0, 0, 0, 0, 0],
-//     //     [0, 0, 0, 0, 0, 0, 0, 0],
-//     // ];
+    // Initialized Cells
+    // let cells = vec![
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 1, 2, 0, 0, 0],
+    //     [0, 0, 0, 2, 1, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    //     [0, 0, 0, 0, 0, 0, 0, 0],
+    // ];
 
-//     fn create_cells (cells: Vec<[usize; 8]>) -> Vec<Cell> {
-//         cells.iter()
-//              .flatten()
-//              .map(
-//                  |&v| match v {
-//                     0 => Cell::EMPTY,
-//                     1 => Cell::WHITE,
-//                     2 => Cell::BLACK,
-//                     _ => panic!("盤面に不正な値が指定されました。0, 1, 2 で値をしてください。")
-//                 }
-//             )
-//             .collect::<Vec<Cell>>()
-//     }
+    fn create_cells (cells: Vec<[usize; 8]>) -> Vec<Cell> {
+        cells.iter()
+             .flatten()
+             .map(
+                 |&v| match v {
+                    0 => Cell::EMPTY,
+                    1 => Cell::BLACK,
+                    2 => Cell::WHITE,
+                    _ => panic!("盤面に不正な値が指定されました。0, 1, 2 で値をしてください。")
+                }
+            )
+            .collect::<Vec<Cell>>()
+    }
 
-//     fn parse_cells_to_state_vec (cells: Vec<Cell>) -> Vec<Cell> {
-//         cells.iter()
-//              .map( |&c| c )
-//              .collect()
-//     }
+    #[test]
+    fn is_out_of_board_test () {
+        // Boardの外側の判定
+        assert_eq!(is_out_of_board(8, Direction::LEFT_UP), true);
+        assert_eq!(is_out_of_board(8, Direction::LEFT), true);
+        assert_eq!(is_out_of_board(8, Direction::LEFT_DOWN), true);
+        assert_eq!(is_out_of_board(15, Direction::RIGHT_UP), true);
+        assert_eq!(is_out_of_board(15, Direction::RIGHT), true);
+        assert_eq!(is_out_of_board(15, Direction::RIGHT_DOWN), true);
+        assert_eq!(is_out_of_board(1, Direction::UP), true);
+        assert_eq!(is_out_of_board(62, Direction::DOWN), true);
 
-//     #[test]
-//     fn is_out_of_board_test () {
-//         // Boardの外側の判定
-//         assert_eq!(is_out_of_board(8, Direction::LEFT_UP), true);
-//         assert_eq!(is_out_of_board(8, Direction::LEFT), true);
-//         assert_eq!(is_out_of_board(8, Direction::LEFT_DOWN), true);
-//         assert_eq!(is_out_of_board(15, Direction::RIGHT_UP), true);
-//         assert_eq!(is_out_of_board(15, Direction::RIGHT), true);
-//         assert_eq!(is_out_of_board(15, Direction::RIGHT_DOWN), true);
-//         assert_eq!(is_out_of_board(1, Direction::UP), true);
-//         assert_eq!(is_out_of_board(62, Direction::DOWN), true);
+        // Boardの内側の判定
+        assert_eq!(is_out_of_board(55, Direction::LEFT_UP), false);
+        assert_eq!(is_out_of_board(55, Direction::LEFT), false);
+        assert_eq!(is_out_of_board(55, Direction::LEFT_DOWN), false);
+        assert_eq!(is_out_of_board(8, Direction::RIGHT_UP), false);
+        assert_eq!(is_out_of_board(8, Direction::RIGHT), false);
+        assert_eq!(is_out_of_board(8, Direction::RIGHT_DOWN), false);
+        assert_eq!(is_out_of_board(62, Direction::UP), false);
+        assert_eq!(is_out_of_board(1, Direction::DOWN), false);
 
-//         // Boardの内側の判定
-//         assert_eq!(is_out_of_board(55, Direction::LEFT_UP), false);
-//         assert_eq!(is_out_of_board(55, Direction::LEFT), false);
-//         assert_eq!(is_out_of_board(55, Direction::LEFT_DOWN), false);
-//         assert_eq!(is_out_of_board(8, Direction::RIGHT_UP), false);
-//         assert_eq!(is_out_of_board(8, Direction::RIGHT), false);
-//         assert_eq!(is_out_of_board(8, Direction::RIGHT_DOWN), false);
-//         assert_eq!(is_out_of_board(62, Direction::UP), false);
-//         assert_eq!(is_out_of_board(1, Direction::DOWN), false);
+        // 境界値のテスト
+        assert_eq!(is_out_of_board(62, Direction::RIGHT), false);
+        assert_eq!(is_out_of_board(1, Direction::LEFT), false);
+    }
 
-//         // 境界値のテスト
-//         assert_eq!(is_out_of_board(62, Direction::RIGHT), false);
-//         assert_eq!(is_out_of_board(1, Direction::LEFT), false);
-//     }
+    #[test]
+    fn get_flipped_direction_positions_test () {
+        let cells = create_cells(vec![
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 0, 2, 2, 2, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ]);
 
-//     #[test]
-//     fn get_flipped_direction_positions_test () {
-//         let cells = create_cells(vec![
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 1, 0, 0, 0],
-//             [0, 0, 0, 1, 1, 0, 0, 0],
-//             [0, 0, 0, 2, 2, 2, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//         ]);
+        assert_eq!(
+            get_flipped_direction_positions(&cells, 42, Direction::RIGHT_UP, Stone::BLACK, vec![]),
+            vec![35]
+        );
+    }
 
-//         assert_eq!(
-//             get_flipped_direction_positions(&cells, 42, Direction::RIGHT_UP, Stone::WHITE, vec![]),
-//             vec![35]
-//         );
-//     }
+    #[test]
+    fn get_flipped_positions_test () {
+        let cells = create_cells(vec![
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 0, 2, 2, 2, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ]);
 
-//     #[test]
-//     fn get_flipped_positions_test () {
-//         let cells = create_cells(vec![
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 1, 0, 0, 0],
-//             [0, 0, 0, 1, 1, 0, 0, 0],
-//             [0, 0, 0, 2, 2, 2, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//         ]);
+        assert_eq!(
+            get_flipped_positions(&cells, 42, Stone::BLACK),
+            vec![35]
+        );
+    }
 
-//         assert_eq!(
-//             get_flipped_positions(&cells, 42, Stone::WHITE),
-//             vec![35]
-//         );
-//     }
+    #[test]
+    fn count_flipped_stone_test () {
+        let cells = create_cells(vec![
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 0, 2, 2, 2, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ]);
 
-//     #[test]
-//     fn count_flipped_stone_test () {
-//         let cells = create_cells(vec![
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 1, 0, 0, 0],
-//             [0, 0, 0, 1, 1, 0, 0, 0],
-//             [0, 0, 0, 2, 2, 2, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//         ]);
+        assert_eq!(
+            count_flipped_stone(&cells, 42, Stone::BLACK),
+            1
+        );
+    }
 
-//         assert_eq!(
-//             count_flipped_stone(&cells, 42, Stone::WHITE),
-//             1
-//         );
-//     }
+    #[test]
+    fn can_put_stone_test () {
+        let cells = create_cells(vec![
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 0, 2, 2, 2, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ]);
 
-//     #[test]
-//     fn can_put_stone_test () {
-//         let cells = create_cells(vec![
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 1, 0, 0, 0],
-//             [0, 0, 0, 1, 1, 0, 0, 0],
-//             [0, 0, 0, 2, 2, 2, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//         ]);
+        assert_eq!(
+            can_put_stone(&cells, 42, Stone::BLACK),
+            true
+        );
+    }
 
-//         assert_eq!(
-//             can_put_stone(&cells, 42, Stone::WHITE),
-//             true
-//         );
-//     }
+    #[test]
+    fn get_available_positions_test () {
+        let cells = create_cells(vec![
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 0, 2, 2, 2, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ]);
 
-//     #[test]
-//     fn get_available_positions_test () {
-//         let cells = create_cells(vec![
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 1, 0, 0, 0],
-//             [0, 0, 0, 1, 1, 0, 0, 0],
-//             [0, 0, 0, 2, 2, 2, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//         ]);
+        let expected = vec![42, 43, 44, 45, 46];
 
-//         let expected = JsValue::from_serde(&vec![42, 43, 44, 45, 46]).unwrap();
-//         let js_value = JsValue::from_serde(&cells).unwrap();
+        assert_eq!(get_available_positions(&cells, Stone::BLACK), expected);
+    }
 
-//         assert_eq!(get_available_positions(js_value, Stone::WHITE), expected);
-//     }
+    #[test]
+    fn flip_stones_test () {
+        let cells = create_cells(vec![
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 1, 0, 0, 0],
+            [0, 0, 1, 2, 1, 0, 0, 0],
+            [0, 0, 2, 2, 2, 2, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ]);
 
-//     #[test]
-//     fn flip_stones_test () {
-//         let cells = create_cells(vec![
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 2, 1, 0, 0, 0],
-//             [0, 0, 1, 2, 1, 0, 0, 0],
-//             [0, 0, 2, 2, 2, 2, 0, 0],
-//             [0, 0, 1, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//         ]);
+        let expected = create_cells(vec![
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 1, 0, 0, 0],
+            [0, 0, 1, 2, 1, 0, 0, 0],
+            [0, 0, 2, 1, 1, 2, 0, 0],
+            [0, 0, 1, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+        ]);
 
-//         let expected = create_cells(vec![
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 2, 1, 0, 0, 0],
-//             [0, 0, 1, 1, 1, 0, 0, 0],
-//             [0, 0, 1, 2, 2, 2, 0, 0],
-//             [0, 0, 1, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//             [0, 0, 0, 0, 0, 0, 0, 0],
-//         ]);
-
-//         let cells_js_value = JsValue::from_serde(&cells).unwrap();
-//         let expected_js_values = JsValue::from_serde(&expected).unwrap();
-
-//         assert_eq!(
-//             flip_stones(cells_js_value, 26, Stone::WHITE),
-//             expected_js_values
-//         );
-//     }
-
-//     #[test]
-//     fn is_game_end_test () {
-//         let end_cells = create_cells(vec![
-//             [2, 2, 2, 2, 2, 2, 2, 2],
-//             [2, 2, 2, 2, 2, 2, 2, 2],
-//             [2, 2, 2, 2, 1, 2, 2, 2],
-//             [2, 2, 2, 1, 1, 2, 2, 2],
-//             [2, 2, 2, 2, 2, 2, 2, 2],
-//             [2, 2, 2, 2, 2, 2, 2, 2],
-//             [2, 2, 2, 2, 2, 2, 2, 2],
-//             [2, 2, 2, 2, 2, 2, 2, 2],
-//         ]);
-
-//         let not_end_cells = create_cells(vec![
-//             [0, 1, 2, 2, 2, 2, 2, 2],
-//             [2, 2, 2, 2, 2, 2, 2, 2],
-//             [2, 2, 2, 2, 1, 2, 2, 2],
-//             [2, 2, 2, 1, 1, 2, 2, 2],
-//             [2, 2, 2, 2, 2, 2, 2, 2],
-//             [2, 2, 2, 2, 2, 2, 2, 2],
-//             [2, 2, 2, 2, 2, 2, 2, 2],
-//             [2, 2, 2, 2, 2, 2, 2, 2],
-//         ]);
-
-//         let end_cells_js_value = JsValue::from_serde(&end_cells).unwrap();
-//         let not_end_cells_js_value = JsValue::from_serde(&not_end_cells).unwrap();
-
-//         assert_eq!(is_game_end(end_cells_js_value), true);
-//         assert_eq!(is_game_end(not_end_cells_js_value), false);
-//     }
-// }
+        assert_eq!(
+            flip_stones(&cells, 44, Stone::BLACK),
+            expected
+        );
+    }
+}
