@@ -70,45 +70,45 @@ export class MinMax extends AI {
     if(cells.filter((cell) => cell === Cell.EMPTY).length > 32) {
       // 中盤までは石の数を少なく取るようにする
       // 相手の石が多い方が得点が高い
-      score += cells.filter((cell) => cell !== stone).length
+      score += cells.filter((cell) => cell as number !== stone as number).length
     } else {
       // 後半はたくさん石を取れるようにする
-      score += cells.filter((cell) => cell === stone).length
+      score += cells.filter((cell) => cell as number === stone as number).length
     }
 
     // 自分の石が角にある
-    score += (cells[0] === stone) ? 200 : 0
-    score += (cells[7] === stone) ? 200 : 0
-    score += (cells[56] === stone) ? 200 : 0
-    score += (cells[63] === stone) ? 200 : 0
+    score += (cells[0]  as number === stone as number) ? 200 : 0
+    score += (cells[7]  as number === stone as number) ? 200 : 0
+    score += (cells[56]  as number === stone as number) ? 200 : 0
+    score += (cells[63]  as number === stone as number) ? 200 : 0
 
     // 相手の石が角にある
-    score += (cells[0] !== stone) ? -200 : 0
-    score += (cells[7] !== stone) ? -200 : 0
-    score += (cells[56] !== stone) ? -200 : 0
-    score += (cells[63] !== stone) ? -200 : 0
+    score += (cells[0]  as number !== stone as number) ? -200 : 0
+    score += (cells[7]  as number !== stone as number) ? -200 : 0
+    score += (cells[56]  as number !== stone as number) ? -200 : 0
+    score += (cells[63]  as number !== stone as number) ? -200 : 0
 
     // 角の上下に石がある
-    score += (cells[1] === stone) ? -30 : 0
-    score += (cells[6] === stone) ? -30 : 0
-    score += (cells[8] === stone) ? -30 : 0
-    score += (cells[15] === stone) ? -30 : 0
-    score += (cells[48] === stone) ? -30 : 0
-    score += (cells[55] === stone) ? -30 : 0
-    score += (cells[57] === stone) ? -30 : 0
-    score += (cells[62] === stone) ? -30 : 0
+    score += (cells[1]  as number === stone as number) ? -30 : 0
+    score += (cells[6]  as number === stone as number) ? -30 : 0
+    score += (cells[8]  as number === stone as number) ? -30 : 0
+    score += (cells[15]  as number === stone as number) ? -30 : 0
+    score += (cells[48]  as number === stone as number) ? -30 : 0
+    score += (cells[55]  as number === stone as number) ? -30 : 0
+    score += (cells[57]  as number === stone as number) ? -30 : 0
+    score += (cells[62]  as number === stone as number) ? -30 : 0
 
     // 自分の石が角の斜めにある
-    score += (cells[9] === stone) ? -100 : 0
-    score += (cells[14] === stone) ? -100 : 0
-    score += (cells[49] === stone) ? -100 : 0
-    score += (cells[54] === stone) ? -100 : 0
+    score += (cells[9]  as number === stone as number) ? -100 : 0
+    score += (cells[14]  as number === stone as number) ? -100 : 0
+    score += (cells[49]  as number === stone as number) ? -100 : 0
+    score += (cells[54]  as number === stone as number) ? -100 : 0
 
     // 相手の石が角の斜めにある
-    score += (cells[9] !== stone) ? 100 : 0
-    score += (cells[14] !== stone) ? 100 : 0
-    score += (cells[49] !== stone) ? 100 : 0
-    score += (cells[54] !== stone) ? 100 : 0
+    score += (cells[9]  as number !== stone as number) ? 100 : 0
+    score += (cells[14]  as number !== stone as number) ? 100 : 0
+    score += (cells[49]  as number !== stone as number) ? 100 : 0
+    score += (cells[54]  as number !== stone as number) ? 100 : 0
 
     return score
   }

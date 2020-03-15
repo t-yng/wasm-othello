@@ -50,14 +50,14 @@ export const isGameEnd = (cells: Cell[]) => {
 
 export const flipStones = (cells: Cell[], index: number, stone: Stone): Cell[] => {
     let copyCells = cells.concat()
-    copyCells[index] = stone
+    copyCells[index] = stone as number;
 
     const flipPositions = directions.flatMap(direction => {
       return getFlipStonePositions(cells, index, direction, stone, [])
     });
 
     flipPositions.forEach((position) => {
-      copyCells[position] = stone
+      copyCells[position] = stone as number;
     })
 
     return copyCells
@@ -71,7 +71,7 @@ const getFlipStonePositions = (cells: Cell[], position: number, direction: numbe
 
     if (cellState === Cell.EMPTY) return []
 
-    if (cellState !== stone) {
+    if (cellState as number !== stone as number) {
       positions.push(nextPostion)
       return getFlipStonePositions(cells, nextPostion, direction, stone, positions)
     } else {

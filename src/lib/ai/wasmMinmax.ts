@@ -5,14 +5,13 @@ import { Cell, Stone } from '../othello';
 export class WasmMinMax extends AI {
     private _minmax: MinMax;
 
-    constructor(stone: Stone, level: number = 5) {
+    constructor(stone: Stone, level: number = 4) {
         super(stone);
         this._minmax = new MinMax(level);
     }
 
     choiceNextPosition(cells: Cell[], stone: Stone): number {
-        console.log(cells, stone);
-        return this._minmax.choice_next_position(cells, stone);
+        return this._minmax.choice_next_position(Uint8Array.from(cells), stone);
     }
 
     set level(level: number) {

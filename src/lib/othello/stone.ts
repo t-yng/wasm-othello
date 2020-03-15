@@ -1,6 +1,6 @@
-export type Stone = 1 | 2;
+import { Cell } from './cell';
 
-export const Stone = {
-    BLACK: 1 as const,
-    WHITE: 2 as const,
+export enum Stone {
+    BLACK = Cell.BLACK,
+    WHITE = Cell.WHITE,
 }
