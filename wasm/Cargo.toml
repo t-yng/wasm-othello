@@ -16,3 +16,9 @@ serde_derive = "^1.0.59"
 [dependencies.wasm-bindgen]
 version = "^0.2"
 features = ["serde-serialize"]
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "console",
+]
