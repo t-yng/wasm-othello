@@ -17,8 +17,8 @@ impl MinMax {
         }
     }
 
-    pub fn choice_next_position(&self, values: JsValue, stone: Stone) -> i8 {
-        let cells: Vec<Cell> = values.into_serde().unwrap();
+    pub fn choice_next_position(&self, values: Vec<u8>, stone: Stone) -> i8 {
+        let cells: Vec<Cell> = values.iter().map(|&v| Cell::from_u8(v)).collect();
         let available_idxes: Vec<usize> = get_available_positions(&cells, stone);
 
         let mut max_score = i32::min_value();

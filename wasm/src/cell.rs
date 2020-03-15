@@ -25,5 +25,14 @@ impl Cell {
             Stone::WHITE => Cell::WHITE,
         }
     }
+
+    pub fn from_u8(cell: u8) -> Cell {
+        match cell {
+            0 => Cell::EMPTY,
+            1 => Cell::BLACK,
+            2 => Cell::WHITE,
+            _ => panic!("not correct value"),
+        }
+    }
 }
 
