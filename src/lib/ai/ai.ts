@@ -26,7 +26,7 @@ export abstract class AI extends Player {
       const start = performance.now();
       const idx = this.choiceNextPosition(cells, stone);
       const end = performance.now();
-      this._times.push(end-start);
+      this._times.push(Math.round(end-start));
       this.select(idx);
     }
 

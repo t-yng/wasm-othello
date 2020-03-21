@@ -5,6 +5,7 @@ import * as othello from '../lib/othello';
 import { AI } from "../lib/ai/ai";
 import { Board } from "./Board";
 import { SidePanel } from "./SidePanel";
+import { TimeLineChart } from './TimeLineChart';
 
 const style = css({
     maxWidth: 700,
@@ -64,9 +65,14 @@ export const App =　() => {
     }
 
     return(
-        <div css={style}>
-            <Board player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
-            <SidePanel onClickStart={onClickStart} />
+        <div>
+            <div css={style}>
+                <Board player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
+                <SidePanel onClickStart={onClickStart} />
+            </div>
+            <div>
+                <TimeLineChart players={game.players.filter(player => player instanceof AI ) as AI[]} />
+            </div>
         </div>
     );
 }
