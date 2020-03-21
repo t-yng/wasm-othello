@@ -3,13 +3,19 @@ import { Cell } from "../othello/cell";
 import { Player } from "../othello/player";
 
 export abstract class AI extends Player {
+    protected _name: string;
     protected _level: number;
     private _times: number[];
 
-    constructor (stone: Stone, level: number) {
+    constructor (name: string, stone: Stone, level: number) {
       super(stone);
+      this._name = name;
       this._level = level;
       this._times = [];
+    }
+
+    get name() {
+      return this._name;
     }
 
     get times() {
