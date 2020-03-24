@@ -5,11 +5,12 @@ import * as othello from '../lib/othello';
 import { AI } from "../lib/ai/ai";
 import { Board } from "./Board";
 import { SidePanel } from "./SidePanel";
+import { Header } from "./Header";
 
 const style = css({
-    maxWidth: 700,
-    height: 401,
-    display: 'flex'
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
 });
 
 export const App =　() => {
@@ -65,6 +66,7 @@ export const App =　() => {
 
     return(
         <div css={style}>
+            <Header/>
             <Board player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
             <SidePanel onClickStart={onClickStart} />
         </div>
