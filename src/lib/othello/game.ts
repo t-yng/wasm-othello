@@ -29,8 +29,18 @@ export class Game {
         this._players = [];
     }
 
-    get player(): Player | AI | undefined { return this._player }
-    get board() { return this._board }
+    get player(): Player | AI | undefined {
+        return this._player;
+    }
+
+    get players() {
+        return this._players;
+    }
+
+    get board() {
+        return this._board
+    }
+
     get availableIndexes () {
         if (this._player == null) return [];
         return getAvailablePositions(this._board.cells, this._player.stone);
