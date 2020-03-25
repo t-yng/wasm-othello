@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { useState, useEffect } from "react";
-import { css, jsx } from "@emotion/core";
+import { css, jsx, Global } from "@emotion/core";
 import * as othello from '../lib/othello';
 import { AI } from "../lib/ai/ai";
 import { Board } from "./Board";
@@ -65,10 +65,13 @@ export const App =　() => {
     }
 
     return(
-        <div css={style}>
-            <Header/>
-            <Board player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
-            <SidePanel onClickStart={onClickStart} />
-        </div>
+        <>
+            <Global styles={{'body': { margin: 0}}} />
+            <div css={style}>
+                <Header/>
+                <Board player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
+                <SidePanel onClickStart={onClickStart} />
+            </div>
+        </>
     );
 }
