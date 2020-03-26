@@ -101,22 +101,28 @@ export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
         },
     ]
 
-    const levelOptions: SelectMenuItem[] = [...Array(6)].map((_, i) => ({ label: (i+1).toString(), value: (i+1).toString()}));
+    const levelOptions: SelectMenuItem[] = [...Array(6)].map((_, i) => ({
+        label: `Level: ${i+1}`,
+        value: (i+1).toString()
+    }));
 
     const [playerType, setPlayerType] = useState<{
         black: PlayerType,
         white: PlayerType,
     }>({
         black: 'human',
-        white: 'human',
+        white: 'wasm',
     });
 
-    const [level, setLevel] = useState({
+    const [level, setLevel] = useState<{
+        black: number;
+        white: number;
+    }>({
         black: 3,
         white: 3,
     })
 
-    const getPlayer = (stone: Stone, type: PlayerType, level: number = 3) => {
+    const getPlayer = (stone: Stone, type: PlayerType, level: number) => {
         switch(type) {
             case 'human': return new Player(stone);
             case 'js': return new MinMax(stone, level);
@@ -152,6 +158,7 @@ export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
                                 width={125}
                                 height={198}
                                 options={levelOptions}
+                                selected={level.black.toString()}
                                 onSelect={item => setLevel({...level, black: Number(item.value)})}
                             />
                         </SelectWrapper>
@@ -179,6 +186,7 @@ export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
                                 width={125}
                                 height={198}
                                 options={levelOptions}
+                                selected={level.white.toString()}
                                 onSelect={item => setLevel({...level, white: Number(item.value)})}
                             />
                         </SelectWrapper>
