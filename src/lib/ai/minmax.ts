@@ -4,6 +4,11 @@ import { Stone } from '../othello/stone'
 import { Cell } from '../othello/cell'
 
 export class MinMax extends AI {
+
+  constructor(stone: Stone, level: number) {
+    super('ミニマックス君', stone, level);
+  }
+
   choiceNextPosition(cells: Cell[], stone: Stone) {
     const availablePositions = Simulator.getAvailablePositions(cells, stone)
 

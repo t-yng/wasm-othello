@@ -6,7 +6,7 @@ export class WasmMinMax extends AI {
     private _minmax: MinMax;
 
     constructor(stone: Stone, level: number) {
-        super(stone, level);
+        super('wasm', stone, level);
         this._minmax = new MinMax(level);
     }
 

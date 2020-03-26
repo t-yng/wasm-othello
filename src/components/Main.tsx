@@ -79,6 +79,9 @@ export const Main = () => {
             <div css={contentStyle}>
                 <TopPanel onClickStart={onClickStart} />
                 <Board player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
+                <div>
+                    <TimeLineChart players={game.players.filter(player => player instanceof AI ) as AI[]} />
+                </div>
             </div>
         </main>
     )
