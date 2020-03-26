@@ -5,6 +5,7 @@ import * as othello from '../lib/othello';
 import { AI } from "../lib/ai/ai";
 import { Board } from "./Board";
 import { TopPanel } from "./TopPanel";
+import { TimeLineChart } from "./TimeLineChart";
 
 const mainStyle = css({
     display: 'flex',
