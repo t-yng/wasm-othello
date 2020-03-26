@@ -61,7 +61,7 @@ export const Main = () => {
             if (player instanceof AI) {
                 player.putStone(cells, player.stone);
             }
-        }, 2000);
+        }, 1000);
     }, [player]);
 
     const onClickStart = (player1: othello.Player|AI, player2: othello.Player|AI) => {
