@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { css, jsx } from "@emotion/core";
 import * as othello from '../lib/othello';
 import { AI } from "../lib/ai/ai";
@@ -29,6 +29,17 @@ export const Main = () => {
     const [ player, setPlayer ] = useState(game.player)
     const [cells, setCells] = useState(game.board.cells);
     const [availables, setAvailables] = useState(game.availableIndexes);
+
+    // CPUが非同期で次の手を考え始めるまでの時間
+    // 対人間の時に一瞬で石を置くと分かりにくいので、あえて遅延させている
+    const waitTime = useMemo(() => {
+        let waitTime = 1000;
+        if(game.players.every(player => player instanceof AI)) {
+            waitTime = 0;
+        }
+
+        return waitTime;
+    }, [game.players]);
 
     game.onUpdateBoard((board: othello.Board) => {
         setCells(board.cells);
@@ -61,7 +72,7 @@ export const Main = () => {
             if (player instanceof AI) {
                 player.putStone(cells, player.stone);
             }
-        }, 1000);
+        }, waitTime);
     }, [player]);
 
     const onClickStart = (player1: othello.Player|AI, player2: othello.Player|AI) => {
