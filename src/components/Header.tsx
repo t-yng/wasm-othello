@@ -19,7 +19,6 @@ const style = css({
     textAlign: 'center',
     backgroundColor: '#62AC7E',
     height: 72,
-    marginBottom: 40,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
