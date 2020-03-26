@@ -14,7 +14,7 @@ export class Player {
         return this._stone
     }
 
-    get soneColor(): string {
+    get stoneColor(): string {
         return this._stone === Stone.BLACK ? '黒' : '白';
     }
 

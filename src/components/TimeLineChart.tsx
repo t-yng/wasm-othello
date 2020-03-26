@@ -3,6 +3,8 @@ import { css, jsx } from '@emotion/core';
 import { Line, LinearComponentProps } from 'react-chartjs-2';
 import { FC } from 'react';
 import { AI } from '../lib/ai/ai';
+import { Stone } from '../lib/othello';
+import { colors } from '../style/colors';
 
 export interface TimeLineChartProps {
     players: AI[];
@@ -11,24 +13,25 @@ export interface TimeLineChartProps {
 const ChartContainerStyle = css({
     width: '80vw',
     height: '500px',
-    backgroundColor: 'green'
+    backgroundColor: colors.green,
 });
 
 export const TimeLineChart: FC<TimeLineChartProps> = ({players}) => {
     if (players.length === 0) return <></>;
 
     const getDatasets = () => {
-        const colors = ['black', 'white'];
+        const borderColors = {
+            [Stone.BLACK]: colors.black1,
+            [Stone.WHITE]: colors.white,
+        }
 
         return players.map((player, i) => ({
-            label: `${player.name}`,
-            borderColor: colors[i],
+            label: `${player.stoneColor}_${player.name}`,
+            borderColor: borderColors[player.stone],
             fill: false,
             data: player.times
         }));
     }
-
-    console.log(getDatasets());
 
     const data: LinearComponentProps['data'] = {
         labels: players[0].times.map((_, i) => `${i+1}手目`),
@@ -38,7 +41,7 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({players}) => {
     const options: LinearComponentProps['options'] = {
         legend: {
             labels: {
-                fontColor: '#333',
+                fontColor: colors.black2,
             }
         },
         maintainAspectRatio: false,
@@ -46,9 +49,7 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({players}) => {
             displayColors: false,
             callbacks: {
                 label: (tooltipItem: any, data: any) => {
-                    console.log(data.datasets[tooltipItem.datasetIndex]);
                     const label = data.datasets[tooltipItem.datasetIndex].label;
-
                     const value = tooltipItem.yLabel;
                     return `${label}: ${value}ms`;
                 },
@@ -61,14 +62,14 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({players}) => {
                         callback: (value: any) => {
                             return `${value} ms`
                         },
-                        fontColor: '#333',
+                        fontColor: colors.black2,
                     },
                 }
             ],
             xAxes: [
                 {
                     ticks: {
-                        fontColor: '#333',
+                        fontColor: colors.black2,
                     },
                 }
             ]

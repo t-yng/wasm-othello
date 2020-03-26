@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import { colors } from '../style/colors';
 
 const Title = styled.span`
     font-size: 36px;
@@ -17,7 +18,7 @@ const HeaderInner = styled.div`
 const style = css({
     width: '100vw',
     textAlign: 'center',
-    backgroundColor: '#62AC7E',
+    backgroundColor: colors.green,
     height: 72,
     display: 'flex',
     alignItems: 'center',

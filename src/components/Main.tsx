@@ -52,7 +52,7 @@ export const Main = () => {
             return;
         }
 
-        alert(`${result.winner.soneColor}の勝ちです！\n黒: ${result.blackCount} vs 白: ${result.whiteCount}`);
+        alert(`${result.winner.stoneColor}の勝ちです！\n黒: ${result.blackCount} vs 白: ${result.whiteCount}`);
     });
 
     useEffect(() => {

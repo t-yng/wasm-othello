@@ -6,9 +6,9 @@ import { Player, Stone } from "../lib/othello";
 import { MinMax } from "../lib/ai/minmax";
 import { WasmMinMax } from "../lib/ai/wasmMinmax";
 import { Button, SelectMenuItem } from 'evergreen-ui';
-import { SelectButton } from "./Common/SelectButton";
 import { Select } from "./Common/Select";
 import styled from "@emotion/styled";
+import { colors } from '../style/colors';
 
 export interface SidePanelProps {
     onClickStart: (player1: Player|AI, player2: Player|AI) => void;
@@ -17,7 +17,7 @@ export interface SidePanelProps {
 type PlayerType = 'human' | 'js' | 'wasm';
 
 const style = css({
-    backgroundColor: 'rgba(174, 232, 244, 0.87)',
+    backgroundColor: colors.blue,
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
@@ -36,11 +36,11 @@ const StoneComponent = styled.div`
 `;
 
 const BlackStone = styled(StoneComponent)`
-    background-color: black;
+    background-color: ${colors.black1};
 `;
 
 const WhiteStone = styled(StoneComponent)`
-    background-color: white;
+    background-color: ${colors.white};
 `
 
 const ColumnCenterContainer = styled.div`
@@ -56,7 +56,7 @@ const LeftTopContainer = styled(ColumnCenterContainer)`
 const VsText = styled.span`
     position: relative;
     top: 39px;
-    color: #666;
+    color: ${colors.black2};
 `;
 
 const MiddleTopContainer = ColumnCenterContainer;
@@ -80,7 +80,7 @@ const BottomContainer = styled.div`
 const Divider = styled.div`
     height: 1px;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.38);
+    background-color: ${colors.black3};
     margin-top: 16px;
     margin-bottom: 16px;
 `;
