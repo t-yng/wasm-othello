@@ -2,9 +2,9 @@
 import { css, jsx } from '@emotion/core';
 import { Line, LinearComponentProps } from 'react-chartjs-2';
 import { FC } from 'react';
-import { AI } from '../lib/ai/ai';
-import { Stone } from '../lib/othello';
-import { colors } from '../style/colors';
+import { AI } from '../../lib/ai/ai';
+import { Stone } from '../../lib/othello';
+import { colors } from '../../style/colors';
 
 export interface TimeLineChartProps {
     players: AI[];
@@ -16,9 +16,7 @@ const ChartContainerStyle = css({
     backgroundColor: colors.green,
 });
 
-export const TimeLineChart: FC<TimeLineChartProps> = ({players}) => {
-    if (players.length === 0) return <></>;
-
+export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
     const getDatasets = () => {
         const borderColors = {
             [Stone.BLACK]: colors.black1,
@@ -78,7 +76,6 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({players}) => {
 
     return (
         <>
-            <h2>処理時間</h2>
             <div css={ChartContainerStyle}>
                 <Line data={data} options={options} width={undefined} height={undefined}></Line>
             </div>

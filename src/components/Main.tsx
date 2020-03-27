@@ -5,7 +5,7 @@ import * as othello from '../lib/othello';
 import { AI } from "../lib/ai/ai";
 import { Board } from "./Board";
 import { TopPanel } from "./TopPanel";
-import { TimeLineChart } from "./TimeLineChart";
+import { TimeLineChartContainer } from "./TimeLineCart/TimeLineCartContainer";
 
 const mainStyle = css({
     display: 'flex',
@@ -92,7 +92,7 @@ export const Main = () => {
             <div css={contentStyle}>
                 <TopPanel onClickStart={onClickStart} />
                 <Board player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
-                <TimeLineChart players={game.players.filter(player => player instanceof AI ) as AI[]} />
+                <TimeLineChartContainer players={game.players.filter(player => player instanceof AI ) as AI[]} />
             </div>
         </main>
     )
