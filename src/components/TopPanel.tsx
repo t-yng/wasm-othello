@@ -100,6 +100,13 @@ const Divider = styled.div({
     marginBottom: 16,
 });
 
+const WarningText = styled.div({
+    width: 115,
+    marginTop: 10,
+    color: 'red',
+    fontSize: 12,
+});
+
 export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
     const options: SelectMenuItem[] = [
         {
@@ -151,6 +158,15 @@ export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
         onClickStart(player1, player2);
     }
 
+    const shouldShowWarning = (stone: Stone) => {
+        switch(stone) {
+            case Stone.BLACK:
+                return playerType.black === 'js' && level.black === 6;
+            case Stone.WHITE:
+                return playerType.white === 'js' && level.white === 6;
+        }
+    }
+
     return (
         <div css={style}>
             <TopContainer>
@@ -178,6 +194,8 @@ export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
                             />
                         </SelectWrapper>
                     )}
+
+                    {shouldShowWarning(Stone.BLACK) && <WarningText>※ タブが固まります</WarningText>}
                 </LeftTopContainer>
                 <MiddleTopContainer>
                     <VsText>VS</VsText>
@@ -206,6 +224,8 @@ export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
                             />
                         </SelectWrapper>
                     )}
+
+                    {shouldShowWarning(Stone.WHITE) && <WarningText>※ タブが固まります</WarningText>}
                 </RightTopContainer>
             </TopContainer>
             <Divider />
