@@ -10,7 +10,7 @@ const style = css({
     borderRight: `1px solid ${colors.black2}`,
     boxSizing: 'border-box',
     display: 'grid',
-    gridTemplateColumns: `repeat(8, ${cell.width}px)`,
+    gridTemplateColumns: 'repeat(8, auto)',
 });
 
 export interface BoardProps {

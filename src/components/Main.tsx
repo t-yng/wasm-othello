@@ -11,6 +11,14 @@ const mainStyle = css({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    paddingTop: 40,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 40,
+    '@media (max-width: 576px)': {
+        paddingTop: 20,
+        paddingBottom: 20,
+    }
 });
 
 const contentStyle = css({
@@ -19,10 +27,6 @@ const contentStyle = css({
     alignItems: 'center',
     maxWidth: 960,
     width: '100%',
-    paddingTop: 40,
-    paddingLeft: 10,
-    paddingRight: 20,
-    paddingBottom: 40,
 });
 
 export const Main = () => {

@@ -19,71 +19,86 @@ type PlayerType = 'human' | 'js' | 'wasm';
 const style = css({
     backgroundColor: colors.blue,
     boxSizing: 'border-box',
+    borderRadius: 4,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     marginBottom: 20,
 });
 
-const SelectWrapper = styled.div`
-    margin-top: 10px;
-`;
+const SelectWrapper = styled.div({
+    marginTop: 10,
+});
 
-const StoneComponent = styled.div`
-    border-radius: 50%;
-    width: 26px;
-    height: 26px;
-`;
+const StoneComponent = styled.div({
+    borderRadius: '50%',
+    width: 26,
+    height: 26,
+});
 
-const BlackStone = styled(StoneComponent)`
-    background-color: ${colors.black1};
-`;
+const BlackStone = styled(StoneComponent)({
+    backgroundColor: colors.black1,
+});
 
-const WhiteStone = styled(StoneComponent)`
-    background-color: ${colors.white};
-`
+const WhiteStone = styled(StoneComponent)({
+    backgroundColor: colors.white,
+})
 
-const ColumnCenterContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
+const ColumnCenterContainer = styled.div({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+});
 
-const LeftTopContainer = styled(ColumnCenterContainer)`
-    padding-right: 20px;
-`
+const LeftTopContainer = styled(ColumnCenterContainer)({
+    paddingRight: 20,
+    '@media (max-width: 576px)': {
+        paddingRight: 10,
+    }
+});
 
-const VsText = styled.span`
-    position: relative;
-    top: 39px;
-    color: ${colors.black2};
-`;
+const VsText = styled.span({
+    position: 'relative',
+    top: 39,
+    color: colors.black2,
+    '@media (max-width: 576px)': {
+        fontSize: 14,
+        top: 42,
+    }
+});
 
 const MiddleTopContainer = ColumnCenterContainer;
 
-const RightTopContainer = styled(ColumnCenterContainer)`
-    padding-left: 20px;
-`
+const RightTopContainer = styled(ColumnCenterContainer)({
+    paddingLeft: 20,
+    '@media (max-width: 576px)': {
+        paddingLeft: 10,
+    }
+});
 
-const TopContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    padding-top: 10px;
-    padding-left: 60px;
-    padding-right: 60px;
-`;
+const TopContainer = styled.div({
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: 10,
+    paddingLeft: 60,
+    paddingRight: 60,
+    '@media (max-width: 576px)': {
+        paddingLeft: 10,
+        paddingRight: 10,
+    }
+});
 
-const BottomContainer = styled.div`
-    padding-bottom: 10px;
-`;
+const BottomContainer = styled.div({
+    paddingBottom: 10,
+});
 
-const Divider = styled.div`
-    height: 1px;
-    width: 100%;
-    background-color: ${colors.black3};
-    margin-top: 16px;
-    margin-bottom: 16px;
-`;
+const Divider = styled.div({
+    height: 1,
+    width: '100%',
+    backgroundColor: colors.black3,
+    marginTop: 16,
+    marginBottom: 16,
+});
 
 export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
     const options: SelectMenuItem[] = [
@@ -144,7 +159,7 @@ export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
                     <SelectWrapper>
                         <Select
                             height={100}
-                            width={125}
+                            width={115}
                             options={options}
                             selected={playerType.black}
                             onSelect={item => setPlayerType({...playerType, black: item.value as PlayerType})}
@@ -155,7 +170,7 @@ export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
                         <SelectWrapper>
                             <Select
                                 text="レベルを選択"
-                                width={125}
+                                width={115}
                                 height={198}
                                 options={levelOptions}
                                 selected={level.black.toString()}
@@ -172,7 +187,7 @@ export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
                     <SelectWrapper>
                         <Select
                             height={100}
-                            width={125}
+                            width={115}
                             options={options}
                             selected={playerType.white}
                             onSelect={item => setPlayerType({...playerType, white: item.value as PlayerType})}
@@ -183,7 +198,7 @@ export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
                         <SelectWrapper>
                             <Select
                                 text="レベルを選択"
-                                width={125}
+                                width={115}
                                 height={198}
                                 options={levelOptions}
                                 selected={level.white.toString()}

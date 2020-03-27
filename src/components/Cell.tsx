@@ -21,8 +21,12 @@ const style = css({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: cell.width,
-    height: cell.height,
+    minWidth: 37.5,
+    maxWidth: 72,
+    width: 'calc(100vw*0.11)',
+    minHeight: 37.5,
+    maxHeight: 72,
+    height: 'calc(100vw*0.11)',
     position: 'relative',
 });
 

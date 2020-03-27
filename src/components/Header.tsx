@@ -3,11 +3,14 @@ import { css, jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import { colors } from '../style/colors';
 
-const Title = styled.span`
-    font-size: 36px;
-    color: white;
-    flex: 1;
-`;
+const Title = styled.span({
+    fontSize: 36,
+    color: colors.white,
+    flex: 1,
+    '@media (max-width: 576px)': {
+        fontSize: 24,
+    }
+});
 
 const HeaderInner = styled.div`
     width: 576px;
@@ -23,6 +26,9 @@ const style = css({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+    boxSizing: 'border-box',
 });
 
 export const Header = () => {

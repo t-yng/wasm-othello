@@ -12,7 +12,9 @@ export interface TimeLineChartProps {
 
 const ChartContainerStyle = css({
     width: '100%',
-    height: '500px',
+    maxHeight: 500,
+    minHeight: 300,
+    height: 'calc(100vw*0.52)',
     backgroundColor: colors.green,
 });
 
@@ -32,7 +34,7 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
     }
 
     const data: LinearComponentProps['data'] = {
-        labels: players[0].times.map((_, i) => `${i+1}手目`),
+        labels: players[0].times.map((_, i) => `${i+1}手`),
         datasets: getDatasets(),
     }
 
@@ -61,6 +63,7 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
                             return `${value} ms`
                         },
                         fontColor: colors.black2,
+                        maxTicksLimit: 10,
                     },
                 }
             ],
