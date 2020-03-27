@@ -26,8 +26,8 @@ const style = css({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 'calc((100vw - (100vw * 0.11 * 8)) / 2)',
+    paddingRight: 'calc((100vw - (100vw * 0.11 * 8)) / 2)',
     boxSizing: 'border-box',
 });
 
