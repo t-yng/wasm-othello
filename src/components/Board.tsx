@@ -3,14 +3,14 @@ import { FC } from 'react';
 import { css, jsx } from '@emotion/core';
 import { Cell } from './Cell';
 import * as othello from '../lib/othello';
+import { colors, cell } from '../style';
 
 const style = css({
-    borderTop: '1px solid #222',
-    borderRight: '1px solid #222',
+    borderTop: `1px solid ${colors.black2}`,
+    borderRight: `1px solid ${colors.black2}`,
     boxSizing: 'border-box',
     display: 'grid',
-    gridTemplateColumns: 'repeat(8, 50px)',
-    width: 401,
+    gridTemplateColumns: `repeat(8, ${cell.width}px)`,
 });
 
 export interface BoardProps {
