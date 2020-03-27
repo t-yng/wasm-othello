@@ -11,7 +11,7 @@ export interface TimeLineChartProps {
 }
 
 const ChartContainerStyle = css({
-    width: '80vw',
+    width: '100%',
     height: '500px',
     backgroundColor: colors.green,
 });

@@ -17,8 +17,8 @@ const contentStyle = css({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    maxWidth: 576,
-    width: 576,
+    maxWidth: 960,
+    width: '100%',
     paddingTop: 40,
     paddingLeft: 10,
     paddingRight: 20,
@@ -92,9 +92,7 @@ export const Main = () => {
             <div css={contentStyle}>
                 <TopPanel onClickStart={onClickStart} />
                 <Board player={player} cells={cells} avalableIndexes={availables} handleClickCell={handleClickCell} />
-                <div>
-                    <TimeLineChart players={game.players.filter(player => player instanceof AI ) as AI[]} />
-                </div>
+                <TimeLineChart players={game.players.filter(player => player instanceof AI ) as AI[]} />
             </div>
         </main>
     )
