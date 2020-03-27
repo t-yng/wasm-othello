@@ -22,6 +22,7 @@ const contentStyle = css({
     paddingTop: 40,
     paddingLeft: 10,
     paddingRight: 20,
+    paddingBottom: 40,
 });
 
 export const Main = () => {
