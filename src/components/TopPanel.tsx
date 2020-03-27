@@ -134,7 +134,7 @@ export const TopPanel: FC<SidePanelProps> = ({onClickStart}) => {
         white: number;
     }>({
         black: 3,
-        white: 3,
+        white: 6,
     })
 
     const getPlayer = (stone: Stone, type: PlayerType, level: number) => {
