@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { css, jsx } from '@emotion/core';
 import { Stone } from './Stone';
 import * as othello from '../lib/othello';
-import { colors } from '../style/colors';
+import { colors, cell } from '../style';
 
 export interface CellProps {
     idx: number;
@@ -14,15 +14,19 @@ export interface CellProps {
 }
 
 const style = css({
-    background: 'green',
+    background: colors.green,
     borderLeft: `1px solid ${colors.black2}`,
     borderBottom: `1px solid ${colors.black2}`,
     boxSizing: 'border-box',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 50,
-    height: 50,
+    minWidth: 37.5,
+    maxWidth: 72,
+    width: 'calc(100vw*0.11)',
+    minHeight: 37.5,
+    maxHeight: 72,
+    height: 'calc(100vw*0.11)',
     position: 'relative',
 });
 

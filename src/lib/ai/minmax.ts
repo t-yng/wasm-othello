@@ -6,7 +6,7 @@ import { Cell } from '../othello/cell'
 export class MinMax extends AI {
 
   constructor(stone: Stone, level: number) {
-    super('ミニマックス君', stone, level);
+    super('js', stone, level);
   }
 
   choiceNextPosition(cells: Cell[], stone: Stone) {

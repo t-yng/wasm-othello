@@ -3,15 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": ">=12.16.1"
+  },
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build:wasm": "cd wasm; wasm-pack build",
+    "build": "yarn build:wasm && next build",
+    "export": "yarn build && next export",
     "start": "next start"
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
     "@types/node": "^13.9.0",
     "@types/react": "^16.9.23",
+    "evergreen-ui": "^4.23.3",
     "@types/react-chartjs-2": "^2.5.7",
     "chart.js": "^2.9.3",
     "next": "^9.2.2",
