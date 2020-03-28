@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { css, jsx } from '@emotion/core';
 import { Cell } from './Cell';
 import * as othello from '../lib/othello';
-import { colors } from '../style';
+import { colors, cell } from '../style';
 
 const style = css({
     borderTop: `1px solid ${colors.black2}`,
@@ -16,31 +16,16 @@ const style = css({
 export interface BoardProps {
     player?: othello.Player;
     cells: othello.Cell[];
-    lastIndex?: number;
     avalableIndexes: number[];
     handleClickCell: (idx: number) => void;
 }
 
-export const Board: FC<BoardProps> = ({
-    player,
-    cells,
-    lastIndex,
-    avalableIndexes,
-    handleClickCell
-}) => {
+export const Board: FC<BoardProps> = ({ player, cells, avalableIndexes, handleClickCell }) => {
     const renderCells = () => {
         return cells.map((cell, i) => {
             const avalable = avalableIndexes.includes(i);
             return  (
-                <Cell
-                    key={i}
-                    cell={cell}
-                    player={player}
-                    idx={i}
-                    lastIndex={lastIndex}
-                    available={avalable}
-                    handleClick={handleClickCell}
-                />
+                <Cell key={i} cell={cell} player={player} idx={i} available={avalable} handleClick={handleClickCell} />
             )
         })
     }

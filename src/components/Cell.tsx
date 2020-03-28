@@ -1,14 +1,12 @@
 /** @jsx jsx */
 import { FC } from 'react';
 import { css, jsx } from '@emotion/core';
-import styled from '@emotion/styled';
 import { Stone } from './Stone';
 import * as othello from '../lib/othello';
-import { colors } from '../style';
+import { colors, cell } from '../style';
 
 export interface CellProps {
     idx: number;
-    lastIndex?: number;
     cell: othello.Cell;
     player?: othello.Player;
     available: boolean;
@@ -32,22 +30,7 @@ const style = css({
     position: 'relative',
 });
 
-const LastIndexHighlight = styled.div({
-    backgroundColor: colors.red2,
-    borderRadius: '50%',
-    width: '20%',
-    height: '20%',
-    position: 'absolute',
-})
-
-export const Cell: FC<CellProps> = ({
-    idx,
-    lastIndex,
-    cell,
-    player,
-    available,
-    handleClick
-}) => {
+export const Cell: FC<CellProps> = ({ idx, cell, player, available, handleClick }) => {
 
     const getPutStone = () => {
         return cell === othello.Cell.BLACK ? othello.Stone.BLACK : othello.Stone.WHITE;
@@ -67,7 +50,6 @@ export const Cell: FC<CellProps> = ({
     return (
         <div css={style} onClick={() => handleClick(idx)}>
             {renderStone()}
-            {idx === lastIndex && <LastIndexHighlight/>}
         </div>
     );
 }
