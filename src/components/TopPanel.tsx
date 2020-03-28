@@ -103,7 +103,7 @@ const Divider = styled.div({
 const WarningText = styled.div({
     width: 115,
     marginTop: 10,
-    color: 'red',
+    color: colors.red1,
     fontSize: 12,
 });
 
