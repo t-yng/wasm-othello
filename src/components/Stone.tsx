@@ -21,7 +21,7 @@ interface GhostCircleProps {
 
 const GhostCircle = styled.div((props: GhostCircleProps) => ({
     backgroundColor: props.color,
-    opacity: 0.4,
+    opacity: 0.3,
     borderRadius: '50%',
     height: '70%',
     width: '70%',
@@ -30,28 +30,27 @@ const GhostCircle = styled.div((props: GhostCircleProps) => ({
 const Container = styled.div({
     width: '70%',
     height: '70%',
-    perspective: 1000,
 });
 
 const AnimationCircle = posed.div({
     black: {
         transform: 'rotateY(0deg)',
         transition: {
-            duration: 1000,
+            duration: 800,
         }
     },
     white: {
         transform: 'rotateY(180deg)',
         transition: {
-            duration: 1000,
+            duration: 800,
         }
     }
 });
 
 const Circle = styled(AnimationCircle)({
     position: 'relative',
-    height: '100%',
-    width: '100%',
+    height: '101%',
+    width: '101%',
     transformStyle: 'preserve-3d',
 });
 

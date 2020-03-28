@@ -57,7 +57,7 @@ export const Main = () => {
         setTimeout(() => {
             setPlayer(player);
             setAvailables(game.availableIndexes);
-        }, 1200);
+        }, 1000);
     });
 
     game.onGameEnd((result: othello.GameResult) => {
@@ -75,7 +75,7 @@ export const Main = () => {
             }
 
             alert(`${result.winner.stoneColor}の勝ちです！\n黒: ${result.blackCount} vs 白: ${result.whiteCount}`);
-        }, 100);
+        }, 1500);
 
     });
 

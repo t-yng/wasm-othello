@@ -24,10 +24,10 @@ const style = css({
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: 37.5,
-    maxWidth: 72,
+    maxWidth: 68,
     width: 'calc(100vw*0.11)',
     minHeight: 37.5,
-    maxHeight: 72,
+    maxHeight: 68,
     height: 'calc(100vw*0.11)',
     position: 'relative',
 });
