@@ -3,7 +3,7 @@
 # Rustが存在しないならインストール
 if !(type "rustc" > /dev/null 2>&1); then
     echo "start install rust"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -y
 else
     echo "rust is already installed 👍"
 fi
