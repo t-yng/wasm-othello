@@ -52,8 +52,7 @@ export const Main = () => {
 
     game.onSwitchPlayer((player: othello.Player) => {
         setPlayer(player);
-        setAvailables([]);
-        setTimeout(() => setAvailables(game.availableIndexes), 500);
+        setAvailables(game.availableIndexes);
     });
 
     game.onGameEnd((result: othello.GameResult) => {
