@@ -8,7 +8,6 @@ import { colors } from '../style';
 
 export interface CellProps {
     idx: number;
-    lastIndex?: number;
     cell: othello.Cell;
     player?: othello.Player;
     available: boolean;
@@ -24,10 +23,10 @@ const style = css({
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: 37.5,
-    maxWidth: 72,
+    maxWidth: 68,
     width: 'calc(100vw*0.11)',
     minHeight: 37.5,
-    maxHeight: 72,
+    maxHeight: 68,
     height: 'calc(100vw*0.11)',
     position: 'relative',
 });
@@ -42,7 +41,6 @@ const LastIndexHighlight = styled.div({
 
 export const Cell: FC<CellProps> = ({
     idx,
-    lastIndex,
     cell,
     player,
     available,
@@ -67,7 +65,6 @@ export const Cell: FC<CellProps> = ({
     return (
         <div css={style} onClick={() => handleClick(idx)}>
             {renderStone()}
-            {idx === lastIndex && <LastIndexHighlight/>}
         </div>
     );
 }

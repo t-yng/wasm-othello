@@ -16,7 +16,6 @@ const style = css({
 export interface BoardProps {
     player?: othello.Player;
     cells: othello.Cell[];
-    lastIndex?: number;
     avalableIndexes: number[];
     handleClickCell: (idx: number) => void;
 }
@@ -24,7 +23,6 @@ export interface BoardProps {
 export const Board: FC<BoardProps> = ({
     player,
     cells,
-    lastIndex,
     avalableIndexes,
     handleClickCell
 }) => {
@@ -37,7 +35,6 @@ export const Board: FC<BoardProps> = ({
                     cell={cell}
                     player={player}
                     idx={i}
-                    lastIndex={lastIndex}
                     available={avalable}
                     handleClick={handleClickCell}
                 />

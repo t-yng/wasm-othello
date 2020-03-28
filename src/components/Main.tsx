@@ -31,7 +31,6 @@ const contentStyle = css({
 
 export const Main = () => {
     const [game] = useState(new othello.Game());
-    const [lastIndex, setLastIndex] = useState<number | undefined>(undefined);
     const [ player, setPlayer ] = useState(game.player)
     const [cells, setCells] = useState(game.board.cells);
     const [availables, setAvailables] = useState(game.availableIndexes);
@@ -47,14 +46,16 @@ export const Main = () => {
         return waitTime;
     }, [game.players]);
 
-    game.onUpdateBoard((board: othello.Board, idx: number) => {
+    game.onUpdateBoard((board: othello.Board, _idx: number) => {
+        setAvailables([]);
         setCells(board.cells);
-        setLastIndex(idx);
     });
 
     game.onSwitchPlayer((player: othello.Player) => {
-        setPlayer(player);
-        setAvailables(game.availableIndexes);
+        setTimeout(() => {
+            setPlayer(player);
+            setAvailables(game.availableIndexes);
+        }, 1000);
     });
 
     game.onGameEnd((result: othello.GameResult) => {
@@ -72,7 +73,7 @@ export const Main = () => {
             }
 
             alert(`${result.winner.stoneColor}の勝ちです！\n黒: ${result.blackCount} vs 白: ${result.whiteCount}`);
-        }, 100);
+        }, 1500);
 
     });
 
@@ -105,7 +106,6 @@ export const Main = () => {
                     player={player}
                     cells={cells}
                     avalableIndexes={availables}
-                    lastIndex={lastIndex}
                     handleClickCell={handleClickCell} />
                 <TimeLineChartContainer players={game.players.filter(player => player instanceof AI ) as AI[]} />
             </div>
