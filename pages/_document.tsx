@@ -25,7 +25,22 @@ export default class MyDocument extends Document<DocumentProps> {
         return (
           <html>
             <Head>
-              <style dangerouslySetInnerHTML={{ __html: css }} />
+                {/* Global site tag (gtag.js) - Google Analytics */}
+                <script async src="https://www.googletagmanager.com/gtag/js?id=UA-57390966-5"></script>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html:`
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+
+                            gtag('config', 'UA-57390966-5', {
+                                page_path: window.location.pathname,
+                            });
+                        `
+                    }}
+                />
+                <style dangerouslySetInnerHTML={{ __html: css }} />
             </Head>
 
             <body>
