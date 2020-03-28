@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "next",
     "preinstall": "sh build/setup.sh",
-    "build": "yarn build:wasm && next build",
+    "build": "next build",
     "export": "yarn build && next export",
     "start": "next start"
   },
