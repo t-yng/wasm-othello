@@ -48,13 +48,16 @@ export const Main = () => {
     }, [game.players]);
 
     game.onUpdateBoard((board: othello.Board, idx: number) => {
+        setAvailables([]);
         setCells(board.cells);
         setLastIndex(idx);
     });
 
     game.onSwitchPlayer((player: othello.Player) => {
-        setPlayer(player);
-        setAvailables(game.availableIndexes);
+        setTimeout(() => {
+            setPlayer(player);
+            setAvailables(game.availableIndexes);
+        }, 1200);
     });
 
     game.onGameEnd((result: othello.GameResult) => {
