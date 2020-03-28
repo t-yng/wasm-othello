@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": ">=12.16.1"
+  },
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build:wasm": "cd wasm; wasm-pack build",
+    "build": "yarn build:wasm && next build",
+    "export": "yarn build && next export",
     "start": "next start"
   },
   "dependencies": {
