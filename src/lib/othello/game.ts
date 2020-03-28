@@ -13,7 +13,7 @@ export type GameResult = {
     whiteCount: number,
 }
 type SwitchPlayer = (player: Player) => void;
-type UpdateBoard = (board: Board) => void;
+type UpdateBoard = (board: Board, idx: number) => void;
 type GameEnd = (result: GameResult) => void;
 
 export class Game {
@@ -56,7 +56,7 @@ export class Game {
                 if (!canPutStone(this._board.cells, idx, stone)) return;
 
                 this._board.putStone(idx, stone);
-                if (this._onUpdateBoard) this._onUpdateBoard(this._board);
+                if (this._onUpdateBoard) this._onUpdateBoard(this._board, idx);
 
                 if (isGameEnd(this._board.cells)) {
                     setTimeout(() => {
