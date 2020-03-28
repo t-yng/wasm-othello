@@ -3,6 +3,7 @@ import { Player } from './player';
 import { Board } from "./board";
 import { AI } from '../ai/ai';
 import { getAvailablePositions, canPutStone, isGameEnd } from './simulator';
+import { Cell } from "./cell";
 
 export type GameResult = {
     draw: boolean,
@@ -85,26 +86,28 @@ export class Game {
 
     switchPlayer() {
         this._player = this._player === this._players[0] ? this._players[1] : this._players[0];
-        if (this.availableIndexes.length === 0) {
-            this.switchPlayer();
-        }
         if (this._onSwithPlayer != null) {
             this._onSwithPlayer(this._player);
+        }
+
+        if (this.availableIndexes.length === 0) {
+            this.switchPlayer();
         }
     }
 
     private judgeResult(): GameResult {
-        const blackCount = this._board.cells.filter(cell => cell as number === Stone.BLACK as number).length;
+        const blackCount = this._board.cells.filter(cell => cell === Cell.BLACK ).length;
+        const whiteCount = this._board.cells.filter(cell => cell === Cell.WHITE ).length;
         let draw = false;
         let winner: Player | undefined;
         let looser: Player | undefined;
 
-        if (blackCount === 32) {
+        if (blackCount === whiteCount) {
             draw = true
-        } else if (blackCount > 32) {
+        } else if (blackCount > whiteCount) {
             winner = this._players[0];
             looser = this._players[1];
-        } else if (blackCount < 32) {
+        } else if (blackCount < whiteCount) {
             winner = this._players[1];
             looser = this._players[0];
         }
@@ -114,7 +117,7 @@ export class Game {
             winner,
             looser,
             blackCount,
-            whiteCount: 64 - blackCount,
+            whiteCount: whiteCount,
         }
     }
 }

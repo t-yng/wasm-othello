@@ -57,17 +57,21 @@ export const Main = () => {
 
     game.onGameEnd((result: othello.GameResult) => {
         setAvailables([]);
-        if (result.draw) {
-            alert('引き分け');
-            return;
-        }
 
-        if (result.winner == null || result.looser == null) {
-            alert('エラーが発生しました');
-            return;
-        }
+        setTimeout(() => {
+            if (result.winner == null || result.looser == null) {
+                alert('エラーが発生しました');
+                return;
+            }
 
-        alert(`${result.winner.stoneColor}の勝ちです！\n黒: ${result.blackCount} vs 白: ${result.whiteCount}`);
+            if (result.draw) {
+                alert(`引き分けです！\n黒: ${result.blackCount} vs 白: ${result.whiteCount}`);
+                return;
+            }
+
+            alert(`${result.winner.stoneColor}の勝ちです！\n黒: ${result.blackCount} vs 白: ${result.whiteCount}`);
+        }, 100);
+
     });
 
     useEffect(() => {

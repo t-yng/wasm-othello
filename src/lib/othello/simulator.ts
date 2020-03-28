@@ -45,7 +45,11 @@ export const canPutStone = (cells: Cell[], index: number, stone: Stone) => {
 }
 
 export const isGameEnd = (cells: Cell[]) => {
-    return cells.includes(Cell.EMPTY) === false
+    return (
+      cells.includes(Cell.EMPTY) === false ||
+      cells.filter(cell => cell === Cell.BLACK).length === 0 ||
+      cells.filter(cell => cell === Cell.WHITE).length === 0
+    );
 }
 
 export const flipStones = (cells: Cell[], index: number, stone: Stone): Cell[] => {
