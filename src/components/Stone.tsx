@@ -5,14 +5,14 @@ import styled from '@emotion/styled';
 import * as othello from '../lib/othello';
 import { colors } from '../style/colors';
 import posed from 'react-pose';
+import {
+    useAnimationContext,
+    defaultValue as animationDefaultValue
+} from './hooks/context/AnimationContext';
 
 export interface StoneProps {
     stone: othello.Stone;
     ghost: boolean;
-}
-
-interface FlipCircleProps {
-    opacity: number;
 }
 
 interface GhostCircleProps {
@@ -35,15 +35,18 @@ const Container = styled.div({
 const AnimationCircle = posed.div({
     black: {
         transform: 'rotateY(0deg)',
-        transition: {
-            duration: 800,
-        }
+        transition: ({ duration }: { duration: number}) => ({
+            duration: duration,
+        }),
     },
     white: {
         transform: 'rotateY(180deg)',
-        transition: {
-            duration: 800,
-        }
+        transition: ({ duration }: { duration: number}) => ({
+            duration: duration,
+        }),
+    },
+    props: {
+        duration: animationDefaultValue.flipTime,
     }
 });
 
@@ -76,13 +79,15 @@ const Back = styled.div({
 });
 
 export const Stone: FC<StoneProps> = ({ stone, ghost }) => {
+    const animation = useAnimationContext();
+
     if (ghost) {
         return <GhostCircle color={stone === othello.Stone.BLACK ? colors.black1 : colors.white} />
     }
 
     return (
         <Container>
-            <Circle pose={stone === othello.Stone.BLACK ? 'black' : 'white'}>
+            <Circle pose={stone === othello.Stone.BLACK ? 'black' : 'white'} duration={animation.flipTime}>
                 <Front />
                 <Back />
             </Circle>

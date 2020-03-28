@@ -6,6 +6,7 @@ import { AI } from "../lib/ai/ai";
 import { Board } from "./Board";
 import { TopPanel } from "./TopPanel";
 import { TimeLineChartContainer } from "./TimeLineCart/TimeLineCartContainer";
+import { AnimationContext, defaultValue as animationDefaultValue } from "./hooks/context/AnimationContext";
 
 const mainStyle = css({
     display: 'flex',
@@ -37,7 +38,7 @@ export const Main = () => {
 
     // CPUが非同期で次の手を考え始めるまでの時間
     // 対人間の時に一瞬で石を置くと分かりにくいので、あえて遅延させている
-    const waitTime = useMemo(() => {
+    const cpuWaitTime = useMemo(() => {
         let waitTime = 1000;
         if(game.players.every(player => player instanceof AI)) {
             waitTime = 0;
@@ -46,16 +47,26 @@ export const Main = () => {
         return waitTime;
     }, [game.players]);
 
+
+    const animation = useMemo((): AnimationContext => {
+        // CPU vs CPU の場合はアニメーションしない
+        return {
+            flipTime:
+                game.players.every(player => player instanceof AI) ? 0 : animationDefaultValue.flipTime,
+        }
+    }, [game.players]);
+
     game.onUpdateBoard((board: othello.Board, _idx: number) => {
         setAvailables([]);
         setCells(board.cells);
     });
 
     game.onSwitchPlayer((player: othello.Player) => {
+        // フリップのアニメーションを待機
         setTimeout(() => {
             setPlayer(player);
             setAvailables(game.availableIndexes);
-        }, 1000);
+        }, animation.flipTime);
     });
 
     game.onGameEnd((result: othello.GameResult) => {
@@ -73,7 +84,7 @@ export const Main = () => {
             }
 
             alert(`${result.winner.stoneColor}の勝ちです！\n黒: ${result.blackCount} vs 白: ${result.whiteCount}`);
-        }, 1500);
+        }, animation.flipTime + 200);
 
     });
 
@@ -83,7 +94,7 @@ export const Main = () => {
             if (player instanceof AI) {
                 player.putStone(cells, player.stone);
             }
-        }, waitTime);
+        }, cpuWaitTime);
     }, [player]);
 
     const onClickStart = (player1: othello.Player|AI, player2: othello.Player|AI) => {
@@ -99,16 +110,18 @@ export const Main = () => {
     }
 
     return (
-        <main css={mainStyle}>
-            <div css={contentStyle}>
-                <TopPanel onClickStart={onClickStart} />
-                <Board
-                    player={player}
-                    cells={cells}
-                    avalableIndexes={availables}
-                    handleClickCell={handleClickCell} />
-                <TimeLineChartContainer players={game.players.filter(player => player instanceof AI ) as AI[]} />
-            </div>
-        </main>
+        <AnimationContext.Provider value={animation}>
+            <main css={mainStyle}>
+                <div css={contentStyle}>
+                    <TopPanel onClickStart={onClickStart} />
+                    <Board
+                        player={player}
+                        cells={cells}
+                        avalableIndexes={availables}
+                        handleClickCell={handleClickCell} />
+                    <TimeLineChartContainer players={game.players.filter(player => player instanceof AI ) as AI[]} />
+                </div>
+            </main>
+        </AnimationContext.Provider>
     )
 }
