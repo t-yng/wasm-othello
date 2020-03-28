@@ -89,6 +89,7 @@ export const Main = () => {
     }
 
     const handleClickCell = (idx: number) => {
+        if (game.player instanceof AI) return;
         if (game.player) game.player.select(idx);
     }
 
