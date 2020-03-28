@@ -29,6 +29,8 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
             label: `${player.stoneColor}_${player.name}`,
             borderColor: borderColors[player.stone],
             fill: false,
+            pointHitRadius: 10,
+            pointRadius: 4,
             data: player.times
         }));
     }
