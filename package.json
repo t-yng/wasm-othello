@@ -8,8 +8,8 @@
   },
   "scripts": {
     "dev": "next",
-    "build:wasm": "cd wasm; wasm-pack build",
-    "build": "yarn build:wasm && next build",
+    "preinstall": "sh build/setup.sh",
+    "build": "next build",
     "export": "yarn build && next export",
     "start": "next start"
   },

@@ -1,3 +1,5 @@
 [build]
   publish="out"
   command="yarn export"
+[build.environment]
+  NODE_VERSION="12.16.1"
