@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Rustが存在しないならインストール
-if type "rustc" > /dev/null 2>&1; then
+if !(type "rustc" > /dev/null 2>&1); then
     echo "start install rust"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 else
@@ -9,7 +9,7 @@ else
 fi
 
 # wasm-packが存在しないならインストール
-if type "wasm-pack" > /dev/null 2>&1; then
+if !(type "wasm-pack" > /dev/null 2>&1); then
     echo "start install wasm-pack"
     curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 else
