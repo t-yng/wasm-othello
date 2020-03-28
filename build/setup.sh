@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Rustが存在しないならインストール
 if !(type "rustc" > /dev/null 2>&1); then
