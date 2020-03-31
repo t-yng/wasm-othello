@@ -21,7 +21,7 @@
     "@types/react-chartjs-2": "^2.5.7",
     "chart.js": "^2.9.3",
     "evergreen-ui": "^4.23.3",
-    "next": "^9.2.2",
+    "next": "^9.3.2",
     "react": "^16.13.0",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.0",
