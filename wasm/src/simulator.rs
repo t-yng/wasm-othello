@@ -61,7 +61,7 @@ pub fn can_put_stone (cells: &Vec<Cell>, position: usize, stone: Stone) -> bool 
 }
 
 pub fn flip_stones (cells: &Vec<Cell>, position: usize, stone: Stone) -> Vec<Cell> {
-    let flipped_positions = get_flipped_positions(&cells, position, stone);
+    let flipped_positions = get_flipped_positions(cells, position, stone);
 
     let mut clone_cells = cells.clone();
     clone_cells[position] = Cell::from_stone(stone);
