@@ -1,5 +1,4 @@
 use wasm_bindgen::prelude::*;
-// use serde::{Serialize, Deserialize};
 
 #[wasm_bindgen]
 #[repr(u8)]

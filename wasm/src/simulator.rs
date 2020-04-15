@@ -28,15 +28,12 @@ impl Direction {
 }
 
 pub fn get_available_positions (cells: &Vec<Cell>, stone: Stone) -> Vec<usize> {
-    let empty_positions: Vec<usize> = cells.iter()
-        .enumerate()
-        .filter_map(
-            |(index, &cell)| match cell {
-                Cell::EMPTY => Some(index),
-                _ => None
-            }
-        )
-        .collect();
+    let mut empty_positions: Vec<usize> = vec![];
+    for (i, cell) in cells.iter().enumerate() {
+        if *cell == Cell::EMPTY {
+            empty_positions.push(i);
+        }
+    }
 
     let available_positions: Vec<usize> = empty_positions.into_iter()
         .filter(
@@ -61,7 +58,7 @@ pub fn can_put_stone (cells: &Vec<Cell>, position: usize, stone: Stone) -> bool 
 }
 
 pub fn flip_stones (cells: &Vec<Cell>, position: usize, stone: Stone) -> Vec<Cell> {
-    let flipped_positions = get_flipped_positions(&cells, position, stone);
+    let flipped_positions = get_flipped_positions(cells, position, stone);
 
     let mut clone_cells = cells.clone();
     clone_cells[position] = Cell::from_stone(stone);
