@@ -76,18 +76,26 @@ impl MinMax {
 
     fn evaluate(cells: &Vec<Cell>, stone: Stone) -> i32 {
         let mut score: i32 = 0;
-        let empty_count: usize = cells.iter()
-                                .filter(|&cell| *cell == Cell::EMPTY)
-                                .collect::<Vec<&Cell>>()
-                                .len();
+        let mut empty_count = 0;
+        for cell in cells.iter() {
+            empty_count += if *cell == Cell::EMPTY { 1 } else { 0 };
+        }
 
         score += if empty_count > 32 {
             // 中盤までは石の数を少なく取るようにする
             // 相手の石が多い方が得点が高い
-            cells.iter().filter(|&cell| *cell as u8 != stone as u8).collect::<Vec<&Cell>>().len() as i32
+            let mut count = 0;
+            for cell in cells.iter() {
+                count += if *cell as u8 != stone as u8 { 1 } else { 0 };
+            }
+            count
         } else {
-           // 後半はたくさん石を取れるようにする
-            cells.iter().filter(|&cell| *cell as u8 == stone as u8).collect::<Vec<&Cell>>().len() as i32
+            // 後半はたくさん石を取れるようにする
+            let mut count = 0;
+            for cell in cells.iter() {
+                count += if *cell as u8 == stone as u8 { 1 } else { 0 };
+            }
+            count
         };
 
         // 自分の石が角にある

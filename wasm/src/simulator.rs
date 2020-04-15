@@ -28,15 +28,12 @@ impl Direction {
 }
 
 pub fn get_available_positions (cells: &Vec<Cell>, stone: Stone) -> Vec<usize> {
-    let empty_positions: Vec<usize> = cells.iter()
-        .enumerate()
-        .filter_map(
-            |(index, &cell)| match cell {
-                Cell::EMPTY => Some(index),
-                _ => None
-            }
-        )
-        .collect();
+    let mut empty_positions: Vec<usize> = vec![];
+    for (i, cell) in cells.iter().enumerate() {
+        if *cell == Cell::EMPTY {
+            empty_positions.push(i);
+        }
+    }
 
     let available_positions: Vec<usize> = empty_positions.into_iter()
         .filter(
