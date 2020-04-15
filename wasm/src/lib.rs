@@ -1,6 +1,5 @@
 extern crate wasm_bindgen;
 extern crate serde;
-extern crate web_sys;
 
 #[macro_use]
 extern crate serde_derive;
