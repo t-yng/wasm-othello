@@ -2,7 +2,6 @@
 
 extern crate test;
 extern crate wasm_othello;
-// extern crate cell;
 
 use wasm_othello::ai::minmax::MinMax;
 use wasm_othello::cell::Stone;
