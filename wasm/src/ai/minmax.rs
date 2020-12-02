@@ -110,7 +110,7 @@ impl MinMax {
         score += if cells[56] != Cell::EMPTY && cells[56] as u8 != stone as u8 { -500 } else { 0 };
         score += if cells[63] != Cell::EMPTY && cells[63] as u8 != stone as u8 { -500 } else { 0 };
 
-        // 角の上下に石がある
+        // 自分の石が角の上下にある
         score += if cells[1] != Cell::EMPTY && cells[1] as u8 == stone as u8 { -30 } else { 0 };
         score += if cells[6] != Cell::EMPTY && cells[6] as u8 == stone as u8 { -30 } else { 0 };
         score += if cells[8] != Cell::EMPTY && cells[8] as u8 == stone as u8 { -30 } else { 0 };
@@ -119,6 +119,16 @@ impl MinMax {
         score += if cells[55] != Cell::EMPTY && cells[55] as u8 == stone as u8 { -30 } else { 0 };
         score += if cells[57] != Cell::EMPTY && cells[57] as u8 == stone as u8 { -30 } else { 0 };
         score += if cells[62] != Cell::EMPTY && cells[62] as u8 == stone as u8 { -30 } else { 0 };
+
+        // 相手の石が角の上下にある
+        score += if cells[1] != Cell::EMPTY && cells[1] as u8 != stone as u8 { 30 } else { 0 };
+        score += if cells[6] != Cell::EMPTY && cells[6] as u8 != stone as u8 { 30 } else { 0 };
+        score += if cells[8] != Cell::EMPTY && cells[8] as u8 != stone as u8 { 30 } else { 0 };
+        score += if cells[15] != Cell::EMPTY && cells[15] as u8 != stone as u8 { 30 } else { 0 };
+        score += if cells[48] != Cell::EMPTY && cells[48] as u8 != stone as u8 { 30 } else { 0 };
+        score += if cells[55] != Cell::EMPTY && cells[55] as u8 != stone as u8 { 30 } else { 0 };
+        score += if cells[57] != Cell::EMPTY && cells[57] as u8 != stone as u8 { 30 } else { 0 };
+        score += if cells[62] != Cell::EMPTY && cells[62] as u8 != stone as u8 { 30 } else { 0 };
 
         // 自分の石が角の斜めにある
         score += if cells[9] != Cell::EMPTY && cells[9] as u8 == stone as u8 { -100 } else { 0 };
