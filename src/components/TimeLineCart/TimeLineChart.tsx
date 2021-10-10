@@ -1,7 +1,6 @@
-import { css, cx } from "@emotion/css";
+import { css } from "@emotion/css";
 import { Line } from "react-chartjs-2";
 import { Props as ChartProps } from "react-chartjs-2/dist/types";
-// import { Props as LinearComponentProps } from "react-chartjs-2/dist";
 import { FC } from "react";
 import { AI } from "../../lib/ai/ai";
 import { Stone } from "../../lib/othello";
@@ -29,6 +28,7 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
     return players.map((player, i) => ({
       label: `${player.stoneColor}_${player.name}`,
       borderColor: borderColors[player.stone],
+      backgroundColor: borderColors[player.stone],
       fill: false,
       pointHitRadius: 10,
       pointRadius: 4,
