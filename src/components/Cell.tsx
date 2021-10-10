@@ -1,7 +1,5 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
 import { FC } from "react";
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/css";
 import styled from "@emotion/styled";
 import { Stone } from "./Stone";
 import * as othello from "../lib/othello";
@@ -65,7 +63,7 @@ export const Cell: FC<CellProps> = ({
   };
 
   return (
-    <div css={style} onClick={() => handleClick(idx)}>
+    <div className={style} onClick={() => handleClick(idx)}>
       {renderStone()}
     </div>
   );

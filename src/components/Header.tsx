@@ -1,6 +1,4 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/css";
 import styled from "@emotion/styled";
 import { colors } from "../style/colors";
 
@@ -34,7 +32,7 @@ const style = css({
 
 export const Header = () => {
   return (
-    <header css={style}>
+    <header className={style}>
       <HeaderInner>
         <Title>wasmオセロ</Title>
         <a

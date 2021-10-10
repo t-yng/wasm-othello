@@ -1,7 +1,5 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
 import { FC } from "react";
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/css";
 import { Cell } from "./Cell";
 import * as othello from "../lib/othello";
 import { colors } from "../style";
@@ -43,5 +41,5 @@ export const Board: FC<BoardProps> = ({
     });
   };
 
-  return <div css={style}>{renderCells()}</div>;
+  return <div className={style}>{renderCells()}</div>;
 };

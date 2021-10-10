@@ -1,8 +1,6 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
 import { useState, FC } from "react";
 import { SelectMenu, SelectMenuItem, SelectMenuProps } from "evergreen-ui";
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/css";
 import { SelectButton } from "./SelectButton";
 
 export interface SelectProps extends Omit<SelectMenuProps, "children"> {
@@ -56,8 +54,10 @@ export const Select: FC<SelectProps> = ({
       // css={style}
       {...others}
     >
-      {/* <button>test</button> */}
-      <SelectButton css={buttonStyle} text={selectedItem?.label ?? text} />
+      <SelectButton
+        className={buttonStyle}
+        text={selectedItem?.label ?? text}
+      />
     </SelectMenu>
   );
 };

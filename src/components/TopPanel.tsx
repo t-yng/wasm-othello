@@ -1,6 +1,4 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/css";
 import { useState, FC } from "react";
 import { AI } from "../lib/ai/ai";
 import { Player, Stone } from "../lib/othello";
@@ -172,7 +170,7 @@ export const TopPanel: FC<SidePanelProps> = ({ onClickStart }) => {
   };
 
   return (
-    <div css={style}>
+    <div className={style}>
       <TopContainer>
         <LeftTopContainer>
           <BlackStone />

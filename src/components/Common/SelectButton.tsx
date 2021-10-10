@@ -1,7 +1,5 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
 import React from "react";
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/css";
 import { Button, CaretDownIcon, ButtonProps } from "evergreen-ui";
 import { FC } from "react";
 
@@ -25,9 +23,9 @@ export interface SelectButtonProps extends ButtonProps {
 export const SelectButton: FC<SelectButtonProps> = React.forwardRef(
   ({ text, ...others }, ref) => {
     return (
-      <Button ref={ref} css={buttonStyle} {...others}>
+      <Button ref={ref} className={buttonStyle} {...others}>
         <span>{text}</span>
-        <CaretDownIcon css={iconStyle} size={12} />
+        <CaretDownIcon className={iconStyle} size={12} />
       </Button>
     );
   }

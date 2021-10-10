@@ -1,12 +1,7 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
 import React from "react";
-import { css, jsx } from "@emotion/react";
-// import { Line } from "react-chartjs-2";
+import { css } from "@emotion/css";
 import { FC } from "react";
 import { AI } from "../../lib/ai/ai";
-// import { Stone } from "../../lib/othello";
-// import { colors } from "../../style/colors";
 import { TimeLineChart } from "./TimeLineChart";
 
 export interface TimeLineChartContainerProps {
@@ -23,7 +18,7 @@ export const TimeLineChartContainer: FC<TimeLineChartContainerProps> = ({
   if (players.length === 0) return <React.Fragment></React.Fragment>;
 
   return (
-    <div css={style}>
+    <div className={style}>
       <h2>処理時間</h2>
       <TimeLineChart players={players} />
     </div>

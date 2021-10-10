@@ -1,7 +1,5 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
 import { useState, useEffect, useMemo } from "react";
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/css";
 import * as othello from "../lib/othello";
 import { AI } from "../lib/ai/ai";
 import { Board } from "./Board";
@@ -121,8 +119,8 @@ export const Main = () => {
 
   return (
     <AnimationContext.Provider value={animation}>
-      <main css={mainStyle}>
-        <div css={contentStyle}>
+      <main className={mainStyle}>
+        <div className={contentStyle}>
           <TopPanel onClickStart={onClickStart} />
           <Board
             player={player}

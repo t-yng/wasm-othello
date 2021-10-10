@@ -1,7 +1,4 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { FC, useState } from "react";
-import { css, jsx } from "@emotion/react";
+import { FC } from "react";
 import styled from "@emotion/styled";
 import * as othello from "../lib/othello";
 import { colors } from "../style/colors";
