@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { css } from "@emotion/css";
+import { css } from "../style/styles";
 import styled from "@emotion/styled";
 import { Stone } from "./Stone";
 import * as othello from "../lib/othello";
@@ -63,7 +63,7 @@ export const Cell: FC<CellProps> = ({
   };
 
   return (
-    <div className={style} onClick={() => handleClick(idx)}>
+    <div css={style} onClick={() => handleClick(idx)}>
       {renderStone()}
     </div>
   );

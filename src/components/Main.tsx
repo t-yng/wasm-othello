@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { css } from "@emotion/css";
+import { css } from "../style/styles";
 import * as othello from "../lib/othello";
 import { AI } from "../lib/ai/ai";
 import { Board } from "./Board";
@@ -119,8 +119,8 @@ export const Main = () => {
 
   return (
     <AnimationContext.Provider value={animation}>
-      <main className={mainStyle}>
-        <div className={contentStyle}>
+      <main css={mainStyle}>
+        <div css={contentStyle}>
           <TopPanel onClickStart={onClickStart} />
           <Board
             player={player}

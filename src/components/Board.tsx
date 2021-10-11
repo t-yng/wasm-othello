@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { css } from "@emotion/css";
+import { css } from "../style/styles";
 import { Cell } from "./Cell";
 import * as othello from "../lib/othello";
 import { colors } from "../style";
@@ -41,5 +41,5 @@ export const Board: FC<BoardProps> = ({
     });
   };
 
-  return <div className={style}>{renderCells()}</div>;
+  return <div css={style}>{renderCells()}</div>;
 };

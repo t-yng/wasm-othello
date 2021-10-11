@@ -1,4 +1,4 @@
-import { css } from "@emotion/css";
+import { css } from "../../style/styles";
 import { Line } from "react-chartjs-2";
 import { Props as ChartProps } from "react-chartjs-2/dist/types";
 import { FC } from "react";
@@ -80,7 +80,7 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
 
   return (
     <>
-      <div className={ChartContainerStyle}>
+      <div css={ChartContainerStyle}>
         <Line
           data={data}
           options={options}

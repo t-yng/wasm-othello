@@ -1,4 +1,4 @@
-import { css } from "@emotion/css";
+import { css } from "../style/styles";
 import styled from "@emotion/styled";
 import { colors } from "../style/colors";
 
@@ -32,7 +32,7 @@ const style = css({
 
 export const Header = () => {
   return (
-    <header className={style}>
+    <header css={style}>
       <HeaderInner>
         <Title>wasmオセロ</Title>
         <a

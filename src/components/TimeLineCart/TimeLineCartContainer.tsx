@@ -1,5 +1,5 @@
 import React from "react";
-import { css } from "@emotion/css";
+import { css } from "../../style/styles";
 import { FC } from "react";
 import { AI } from "../../lib/ai/ai";
 import { TimeLineChart } from "./TimeLineChart";
@@ -18,7 +18,7 @@ export const TimeLineChartContainer: FC<TimeLineChartContainerProps> = ({
   if (players.length === 0) return <React.Fragment></React.Fragment>;
 
   return (
-    <div className={style}>
+    <div css={style}>
       <h2>処理時間</h2>
       <TimeLineChart players={players} />
     </div>

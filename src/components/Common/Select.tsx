@@ -1,6 +1,6 @@
 import { useState, FC } from "react";
 import { SelectMenu, SelectMenuItem, SelectMenuProps } from "evergreen-ui";
-import { css } from "@emotion/css";
+import { css } from "../../style/styles";
 import { SelectButton } from "./SelectButton";
 
 export interface SelectProps extends Omit<SelectMenuProps, "children"> {
@@ -15,10 +15,6 @@ const makeButtonStyle = (props: ButtonStyleProps) =>
   css({
     width: props.width,
   });
-
-const style = css({
-  marginBottom: 10,
-});
 
 export const Select: FC<SelectProps> = ({
   hasFilter = false,
@@ -53,10 +49,7 @@ export const Select: FC<SelectProps> = ({
       onSelect={handleSelect}
       {...others}
     >
-      <SelectButton
-        className={buttonStyle}
-        text={selectedItem?.label ?? text}
-      />
+      <SelectButton css={buttonStyle} text={selectedItem?.label ?? text} />
     </SelectMenu>
   );
 };

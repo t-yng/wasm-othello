@@ -1,4 +1,4 @@
-import { css } from "@emotion/css";
+import { css } from "../style/styles";
 import { useState, FC } from "react";
 import { AI } from "../lib/ai/ai";
 import { Player, Stone } from "../lib/othello";
@@ -170,7 +170,7 @@ export const TopPanel: FC<SidePanelProps> = ({ onClickStart }) => {
   };
 
   return (
-    <div className={style}>
+    <div css={style}>
       <TopContainer>
         <LeftTopContainer>
           <BlackStone />
