@@ -18,5 +18,4 @@ else
 fi
 
 # wasmのビルド
-cd wasm;
-wasm-pack build;
+wasm-pack build wasm -d ../src/lib/wasm;
