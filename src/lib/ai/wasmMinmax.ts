@@ -1,4 +1,4 @@
-import { MinMax } from "../../../wasm/pkg/wasm_othello_bg";
+import { MinMax } from "../wasm/wasm_othello_bg";
 import { AI } from "./ai";
 import { Cell, Stone } from "../othello";
 

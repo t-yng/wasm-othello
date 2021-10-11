@@ -51,7 +51,6 @@ export const Select: FC<SelectProps> = ({
       options={options}
       selected={selectedItem?.value?.toString()}
       onSelect={handleSelect}
-      // css={style}
       {...others}
     >
       <SelectButton
