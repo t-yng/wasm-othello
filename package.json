@@ -1,10 +1,10 @@
 {
-  "name": "react-othello",
+  "name": "wasm-othello",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "engines": {
-    "node": ">=12.16.1"
+    "node": "14.x"
   },
   "scripts": {
     "dev": "next",
