@@ -161,7 +161,7 @@ mod tests {
                     0 => Cell::EMPTY,
                     1 => Cell::BLACK,
                     2 => Cell::WHITE,
-                    _ => panic!("盤面に不正な値が指定されました。0, 1, 2 で値をしてください。")
+                    _ => panic!("Invalid value specified for the board. Please use values 0, 1, or 2.")
                 }
             )
             .collect::<Vec<Cell>>()
@@ -169,7 +169,7 @@ mod tests {
 
     #[test]
     fn is_out_of_board_test () {
-        // Boardの外側の判定
+        // Test for positions outside the board
         assert_eq!(is_out_of_board(8, Direction::LEFT_UP), true);
         assert_eq!(is_out_of_board(8, Direction::LEFT), true);
         assert_eq!(is_out_of_board(8, Direction::LEFT_DOWN), true);
@@ -179,7 +179,7 @@ mod tests {
         assert_eq!(is_out_of_board(1, Direction::UP), true);
         assert_eq!(is_out_of_board(62, Direction::DOWN), true);
 
-        // Boardの内側の判定
+        // Test for positions inside the board
         assert_eq!(is_out_of_board(55, Direction::LEFT_UP), false);
         assert_eq!(is_out_of_board(55, Direction::LEFT), false);
         assert_eq!(is_out_of_board(55, Direction::LEFT_DOWN), false);
@@ -189,7 +189,7 @@ mod tests {
         assert_eq!(is_out_of_board(62, Direction::UP), false);
         assert_eq!(is_out_of_board(1, Direction::DOWN), false);
 
-        // 境界値のテスト
+        // Boundary value tests
         assert_eq!(is_out_of_board(62, Direction::RIGHT), false);
         assert_eq!(is_out_of_board(1, Direction::LEFT), false);
     }

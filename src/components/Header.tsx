@@ -34,7 +34,7 @@ export const Header = () => {
   return (
     <header css={style}>
       <HeaderInner>
-        <Title>wasmオセロ</Title>
+        <Title>wasm Othello</Title>
         <a
           href="https://github.com/t-yng/wasm-othello"
           target="_blank"

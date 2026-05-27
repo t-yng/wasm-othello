@@ -10,7 +10,7 @@ const LEFT_DOWN = 7
 const DOWN = 8
 const RIGHT_DOWN = 9
 
-// 石を反転させる方向
+// Directions to flip stones
 const directions = [
   LEFT_UP,
   UP,

@@ -109,7 +109,7 @@ const WarningText = styled.div({
 export const TopPanel: FC<SidePanelProps> = ({ onClickStart }) => {
   const options: SelectMenuItem[] = [
     {
-      label: "人間",
+      label: "Human",
       value: "human",
     },
     {
@@ -192,7 +192,7 @@ export const TopPanel: FC<SidePanelProps> = ({ onClickStart }) => {
           {playerType.black !== "human" && (
             <SelectWrapper>
               <Select
-                text="レベルを選択"
+                text="Select Level"
                 width={115}
                 height={198}
                 options={levelOptions}
@@ -205,7 +205,7 @@ export const TopPanel: FC<SidePanelProps> = ({ onClickStart }) => {
           )}
 
           {shouldShowWarning(Stone.BLACK) && (
-            <WarningText>※ タブが固まります</WarningText>
+            <WarningText>* Tab may freeze</WarningText>
           )}
         </LeftTopContainer>
         <MiddleTopContainer>
@@ -231,7 +231,7 @@ export const TopPanel: FC<SidePanelProps> = ({ onClickStart }) => {
           {playerType.white !== "human" && (
             <SelectWrapper>
               <Select
-                text="レベルを選択"
+                text="Select Level"
                 width={115}
                 height={198}
                 options={levelOptions}
@@ -244,14 +244,14 @@ export const TopPanel: FC<SidePanelProps> = ({ onClickStart }) => {
           )}
 
           {shouldShowWarning(Stone.WHITE) && (
-            <WarningText>※ タブが固まります</WarningText>
+            <WarningText>* Tab may freeze</WarningText>
           )}
         </RightTopContainer>
       </TopContainer>
       <Divider />
       <BottomContainer>
         <Button appearance="primary" onClick={handleClickStart}>
-          ゲーム開始
+          Start Game
         </Button>
       </BottomContainer>
     </div>

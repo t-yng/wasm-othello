@@ -23,15 +23,15 @@ export class MinMax extends AI {
     }
 
     if(nextPosition === -1) {
-      alert('置く場所が見つかりませんでした。')
-      throw new Error('置く場所が見つかりませんでした')
+      alert('No available position found.')
+      throw new Error('No available position found')
     }
 
     return nextPosition
   }
 
   /**
-   * 盤面における打ち手の得点を計算する
+   * Calculates the score of a move on the board
    */
   private scoreNextPosition(cells: Cell[], player: Stone, stone: Stone, nextIdx: number, depth = 0) {
     const nextCells = Simulator.flipStones(cells, nextIdx, stone)
@@ -42,7 +42,7 @@ export class MinMax extends AI {
       const nextStone = (stone === Stone.WHITE) ? Stone.BLACK : Stone.WHITE
       const availablePositions = Simulator.getAvailablePositions(nextCells, nextStone)
 
-      // 打つ場所が無い時は探索を打ち切り盤面の評価得点を返す
+      // When there's no place to move, cut off the search and return the board evaluation score
       if(availablePositions.length === 0) {
         return this.evaluate(nextCells, player)
       }
@@ -69,27 +69,27 @@ export class MinMax extends AI {
     let score = 0
 
     if(cells.filter((cell) => cell === Cell.EMPTY).length > 32) {
-      // 中盤までは石の数を少なく取るようにする
-      // 相手の石が多い方が得点が高い
+      // In the mid-game, take fewer stones
+      // Higher score when the opponent has more stones
       score += cells.filter((cell) => cell as number !== stone as number).length
     } else {
-      // 後半はたくさん石を取れるようにする
+      // In the late game, take as many stones as possible
       score += cells.filter((cell) => cell as number === stone as number).length
     }
 
-    // 自分の石が角にある
+    // Own stone is at a corner
     score += ( cells[0] !== Cell.EMPTY && cells[0] as number === stone as number) ? 500 : 0
     score += ( cells[7] !== Cell.EMPTY && cells[7] as number === stone as number) ? 500 : 0
     score += ( cells[56] !== Cell.EMPTY && cells[56] as number === stone as number) ? 500 : 0
     score += ( cells[63] !== Cell.EMPTY && cells[63] as number === stone as number) ? 500 : 0
 
-    // 相手の石が角にある
+    // Opponent's stone is at a corner
     score += ( cells[0] !== Cell.EMPTY && cells[0] as number !== stone as number) ? -500 : 0
     score += ( cells[7] !== Cell.EMPTY && cells[7] as number !== stone as number) ? -500 : 0
     score += ( cells[56] !== Cell.EMPTY && cells[56] as number !== stone as number) ? -500 : 0
     score += ( cells[63] !== Cell.EMPTY && cells[63] as number !== stone as number) ? -500 : 0
 
-    // 自分の石が角の上下にある
+    // Own stone is adjacent to a corner
     score += ( cells[1] !== Cell.EMPTY && cells[1] as number === stone as number) ? -30 : 0
     score += ( cells[6] !== Cell.EMPTY && cells[6] as number === stone as number) ? -30 : 0
     score += ( cells[8] !== Cell.EMPTY && cells[8] as number === stone as number) ? -30 : 0
@@ -99,7 +99,7 @@ export class MinMax extends AI {
     score += ( cells[57] !== Cell.EMPTY && cells[57] as number === stone as number) ? -30 : 0
     score += ( cells[62] !== Cell.EMPTY && cells[62] as number === stone as number) ? -30 : 0
 
-    // 相手の石が角の上下にある
+    // Opponent's stone is adjacent to a corner
     score += ( cells[1] !== Cell.EMPTY && cells[1] as number !== stone as number) ? 30 : 0
     score += ( cells[6] !== Cell.EMPTY && cells[6] as number !== stone as number) ? 30 : 0
     score += ( cells[8] !== Cell.EMPTY && cells[8] as number !== stone as number) ? 30 : 0
@@ -109,13 +109,13 @@ export class MinMax extends AI {
     score += ( cells[57] !== Cell.EMPTY && cells[57] as number !== stone as number) ? 30 : 0
     score += ( cells[62] !== Cell.EMPTY && cells[62] as number !== stone as number) ? 30 : 0
 
-    // 自分の石が角の斜めにある
+    // Own stone is diagonally adjacent to a corner
     score += ( cells[9] !== Cell.EMPTY && cells[9] as number === stone as number) ? -100 : 0
     score += ( cells[14] !== Cell.EMPTY && cells[14] as number === stone as number) ? -100 : 0
     score += ( cells[49] !== Cell.EMPTY && cells[49] as number === stone as number) ? -100 : 0
     score += ( cells[54] !== Cell.EMPTY && cells[54] as number === stone as number) ? -100 : 0
 
-    // 相手の石が角の斜めにある
+    // Opponent's stone is diagonally adjacent to a corner
     score += ( cells[9] !== Cell.EMPTY && cells[9] as number !== stone as number) ? 100 : 0
     score += ( cells[14] !== Cell.EMPTY && cells[14] as number !== stone as number) ? 100 : 0
     score += ( cells[49] !== Cell.EMPTY && cells[49] as number !== stone as number) ? 100 : 0

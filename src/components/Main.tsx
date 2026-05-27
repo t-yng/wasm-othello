@@ -38,8 +38,8 @@ export const Main = () => {
   const [cells, setCells] = useState(game.board.cells);
   const [availables, setAvailables] = useState(game.availableIndexes);
 
-  // CPUが非同期で次の手を考え始めるまでの時間
-  // 対人間の時に一瞬で石を置くと分かりにくいので、あえて遅延させている
+  // Time until CPU starts thinking about the next move asynchronously
+  // Deliberately delayed because placing the stone instantly against a human makes it hard to follow
   const cpuWaitTime = useMemo(() => {
     let waitTime = 1000;
     if (game.players.every((player) => player instanceof AI)) {
@@ -50,7 +50,7 @@ export const Main = () => {
   }, [game.players]);
 
   const animation = useMemo((): AnimationContext => {
-    // CPU vs CPU の場合はアニメーションしない
+    // No animation for CPU vs CPU
     return {
       flipTime: game.players.every((player) => player instanceof AI)
         ? 0
@@ -64,7 +64,7 @@ export const Main = () => {
   });
 
   game.onSwitchPlayer((player: othello.Player) => {
-    // フリップのアニメーションを待機
+    // Wait for flip animation
     setTimeout(() => {
       setPlayer(player);
       setAvailables(game.availableIndexes);
@@ -76,25 +76,25 @@ export const Main = () => {
 
     setTimeout(() => {
       if (result.winner == null || result.looser == null) {
-        alert("エラーが発生しました");
+        alert("An error occurred");
         return;
       }
 
       if (result.draw) {
         alert(
-          `引き分けです！\n黒: ${result.blackCount} vs 白: ${result.whiteCount}`
+          `It's a draw!\nBlack: ${result.blackCount} vs White: ${result.whiteCount}`
         );
         return;
       }
 
       alert(
-        `${result.winner.stoneColor}の勝ちです！\n黒: ${result.blackCount} vs 白: ${result.whiteCount}`
+        `${result.winner.stoneColor} wins!\nBlack: ${result.blackCount} vs White: ${result.whiteCount}`
       );
     }, animation.flipTime + 200);
   });
 
   useEffect(() => {
-    // CPUの思考待ちで描画がブロックされるので非同期で実行
+    // Run asynchronously because rendering is blocked while waiting for CPU to think
     setTimeout(() => {
       if (player instanceof AI) {
         player.putStone(cells, player.stone);

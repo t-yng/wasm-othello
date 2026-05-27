@@ -1,7 +1,7 @@
 #![feature(test)]
 
 extern crate test;
-extern crate wasm_othello; // Cargo.tomlで crate-type = ["rlib", "dylib"] に変更する必要あり
+extern crate wasm_othello; // Must change crate-type to ["rlib", "dylib"] in Cargo.toml
 
 use wasm_othello::ai::minmax::MinMax;
 use wasm_othello::cell::Stone;
