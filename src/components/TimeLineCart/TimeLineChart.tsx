@@ -1,7 +1,28 @@
 import { css } from "../../style/styles";
 import { Line } from "react-chartjs-2";
-import { Props as ChartProps } from "react-chartjs-2/dist/types";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ChartData,
+  ChartOptions,
+} from "chart.js";
 import { FC } from "react";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 import { AI } from "../../lib/ai/ai";
 import { Stone } from "../../lib/othello";
 import { colors } from "../../style/colors";
@@ -36,12 +57,12 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
     }));
   };
 
-  const data: ChartProps["data"] = {
+  const data: ChartData<"line"> = {
     labels: players[0].times.map((_, i) => `${i + 1}手`),
     datasets: getDatasets(),
   };
 
-  const options: ChartProps["options"] = {
+  const options: ChartOptions<"line"> = {
     plugins: {
       legend: {
         labels: {

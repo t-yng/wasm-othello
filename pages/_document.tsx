@@ -10,7 +10,7 @@ import { extractStyles } from "evergreen-ui";
 
 type DocumentProps = {
   css: string;
-  hydrationScript: JSX.Element;
+  hydrationScript: React.JSX.Element;
 };
 
 export default class MyDocument extends Document<DocumentProps> {

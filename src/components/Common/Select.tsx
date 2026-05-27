@@ -30,7 +30,7 @@ export const Select: FC<SelectProps> = ({
   });
 
   const [selectedItem, setSelected] = useState<SelectMenuItem | undefined>(
-    options.find((item) => item.value === selected)
+    options.find((item) => item.value === selected),
   );
 
   const handleSelect = (item: SelectMenuItem) => {

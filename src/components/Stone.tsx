@@ -1,11 +1,10 @@
 import { FC } from "react";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import * as othello from "../lib/othello";
 import { colors } from "../style/colors";
-import posed from "react-pose";
 import {
   useAnimationContext,
-  defaultValue as animationDefaultValue,
 } from "./hooks/context/AnimationContext";
 
 export interface StoneProps {
@@ -30,25 +29,12 @@ const Container = styled.div({
   height: "70%",
 });
 
-const AnimationCircle = posed.div({
-  black: {
-    transform: "rotateY(0deg)",
-    transition: ({ duration }: { duration: number }) => ({
-      duration: duration,
-    }),
-  },
-  white: {
-    transform: "rotateY(180deg)",
-    transition: ({ duration }: { duration: number }) => ({
-      duration: duration,
-    }),
-  },
-  props: {
-    duration: animationDefaultValue.flipTime,
-  },
-});
+const stoneVariants = {
+  black: { rotateY: 0 },
+  white: { rotateY: 180 },
+};
 
-const Circle = styled(AnimationCircle)({
+const Circle = styled(motion.div)({
   position: "relative",
   height: "101%",
   width: "101%",
@@ -90,8 +76,9 @@ export const Stone: FC<StoneProps> = ({ stone, ghost }) => {
   return (
     <Container>
       <Circle
-        pose={stone === othello.Stone.BLACK ? "black" : "white"}
-        duration={animation.flipTime}
+        variants={stoneVariants}
+        animate={stone === othello.Stone.BLACK ? "black" : "white"}
+        transition={{ duration: animation.flipTime / 1000 }}
       >
         <Front />
         <Back />

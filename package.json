@@ -4,28 +4,31 @@
   "main": "index.js",
   "license": "MIT",
   "engines": {
-    "node": "14.x"
+    "node": ">=18.18"
   },
   "scripts": {
     "dev": "next",
     "build": "yarn build:wasm && next build",
     "build:wasm": "sh bin/build-wasm.sh",
     "export": "yarn build && next export",
-    "start": "next start"
+    "start": "next start",
+    "type-check": "tsc --noEmit"
+  },
+  "resolutions": {
+    "@types/react": "^19.2.15"
   },
   "dependencies": {
-    "@emotion/react": "^11.4.1",
-    "@emotion/styled": "^11.3.0",
-    "@types/node": "^16.10.3",
-    "@types/react": "^17.0.27",
-    "@types/react-chartjs-2": "^2.5.7",
-    "chart.js": "^3.5.1",
-    "evergreen-ui": "^6.5.1",
-    "next": "^11.1.2",
-    "react": "^17.0.2",
-    "react-chartjs-2": "^3.0.5",
-    "react-dom": "^17.0.2",
-    "react-pose": "^4.0.10",
-    "typescript": "^4.4.3"
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
+    "chart.js": "^4.5.1",
+    "evergreen-ui": "^7.1.9",
+    "framer-motion": "^12.40.0",
+    "next": "^16.2.6",
+    "react": "^19.2.6",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.2.6",
+    "typescript": "^6.0.3"
   }
 }
