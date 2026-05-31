@@ -58,7 +58,7 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
   };
 
   const data: ChartData<"line"> = {
-    labels: players[0].times.map((_, i) => `${i + 1}手`),
+    labels: players[0].times.map((_, i) => `Move ${i + 1}`),
     datasets: getDatasets(),
   };
 

@@ -22,7 +22,7 @@ export const Select: FC<SelectProps> = ({
   options = [],
   selected,
   onSelect,
-  text = "選択",
+  text = "Select",
   ...others
 }) => {
   const buttonStyle = makeButtonStyle({

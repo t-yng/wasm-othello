@@ -34,12 +34,8 @@ export const Header = () => {
   return (
     <header css={style}>
       <HeaderInner>
-        <Title>wasm Othello</Title>
-        <a
-          href="https://github.com/t-yng/wasm-othello"
-          target="_blank"
-          rel="noopner"
-        >
+        <Title>Wasm Othello</Title>
+        <a href="https://github.com/t-yng/wasm-othello" target="_blank" rel="noopner">
           <img src="/icons/GitHub.png" width={24} height={24} />
         </a>
       </HeaderInner>

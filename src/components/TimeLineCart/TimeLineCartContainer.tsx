@@ -19,7 +19,7 @@ export const TimeLineChartContainer: FC<TimeLineChartContainerProps> = ({
 
   return (
     <div css={style}>
-      <h2>処理時間</h2>
+      <h2>Processing Time</h2>
       <TimeLineChart players={players} />
     </div>
   );

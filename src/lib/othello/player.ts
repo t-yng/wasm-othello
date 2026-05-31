@@ -15,7 +15,7 @@ export class Player {
     }
 
     get stoneColor(): string {
-        return this._stone === Stone.BLACK ? '黒' : '白';
+        return this._stone === Stone.BLACK ? 'Black' : 'White';
     }
 
     select(idx: number) {

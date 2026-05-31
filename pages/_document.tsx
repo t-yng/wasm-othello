@@ -29,7 +29,7 @@ export default class MyDocument extends Document<DocumentProps> {
     const { css, hydrationScript } = this.props;
 
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script
