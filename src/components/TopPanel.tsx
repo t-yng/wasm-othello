@@ -16,16 +16,15 @@ export interface SidePanelProps {
 type PlayerType = "human" | "js" | "wasm";
 
 const style = css({
-  background: "rgba(26, 26, 53, 0.9)",
-  border: "1px solid rgba(124, 58, 237, 0.25)",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(124, 58, 237, 0.1)",
+  background: "linear-gradient(160deg, #5E56C0 0%, #4A43A8 100%)",
+  border: "1px solid rgba(167, 139, 250, 0.5)",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(124, 58, 237, 0.2)",
   boxSizing: "border-box",
   borderRadius: 12,
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   marginBottom: 24,
-  backdropFilter: "blur(12px)",
 });
 
 const SelectWrapper = styled.div({
@@ -66,8 +65,8 @@ const VsText = styled.span({
   top: 39,
   fontFamily: "'Russo One', sans-serif",
   fontSize: 16,
-  color: colors.primaryLight,
-  textShadow: "0 0 12px rgba(167, 139, 250, 0.6)",
+  color: "#E2E8F0",
+  textShadow: "0 0 12px rgba(255,255,255,0.4)",
   letterSpacing: "0.1em",
   "@media (max-width: 576px)": {
     fontSize: 13,
@@ -103,7 +102,7 @@ const BottomContainer = styled.div({
 const Divider = styled.div({
   height: 1,
   width: "100%",
-  background: "linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.4), transparent)",
+  background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)",
   marginTop: 16,
   marginBottom: 16,
 });
@@ -112,7 +111,7 @@ const WarningText = styled.div({
   width: 115,
   marginTop: 10,
   color: colors.red1,
-  fontSize: 11,
+  fontSize: 14,
   fontFamily: "'Chakra Petch', sans-serif",
   textShadow: "0 0 8px rgba(244, 63, 94, 0.5)",
 });
@@ -122,21 +121,22 @@ const StartButton = styled.button({
   fontSize: 14,
   letterSpacing: "0.1em",
   color: "#E2E8F0",
-  background: "linear-gradient(135deg, #7C3AED, #6D28D9)",
-  border: "none",
+  background: "linear-gradient(90deg, #3B38A0 0%, #4338CA 100%)",
+  border: "1px solid rgba(167, 139, 250, 0.4)",
   borderRadius: 6,
   padding: "10px 28px",
   cursor: "pointer",
   transition: "all 0.2s ease",
-  boxShadow: "0 4px 16px rgba(124, 58, 237, 0.4)",
+  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.4)",
   "&:hover": {
-    background: "linear-gradient(135deg, #8B5CF6, #7C3AED)",
-    boxShadow: "0 6px 24px rgba(124, 58, 237, 0.6)",
+    background: "linear-gradient(90deg, #4338CA 0%, #4F46E5 100%)",
+    borderColor: "rgba(167, 139, 250, 0.6)",
+    boxShadow: "0 4px 12px rgba(13, 148, 136, 0.4)",
     transform: "translateY(-1px)",
   },
   "&:active": {
     transform: "translateY(0)",
-    boxShadow: "0 2px 8px rgba(124, 58, 237, 0.4)",
+    boxShadow: "0 1px 4px rgba(0, 0, 0, 0.4)",
   },
 });
 
@@ -231,16 +231,11 @@ export const TopPanel: FC<SidePanelProps> = ({ onClickStart }) => {
                 height={198}
                 options={levelOptions}
                 selected={level.black.toString()}
-                onSelect={(item) =>
-                  setLevel({ ...level, black: Number(item.value) })
-                }
+                onSelect={(item) => setLevel({ ...level, black: Number(item.value) })}
               />
             </SelectWrapper>
           )}
-
-          {shouldShowWarning(Stone.BLACK) && (
-            <WarningText>* Tab may freeze</WarningText>
-          )}
+          {shouldShowWarning(Stone.BLACK) && <WarningText>Tab may freeze</WarningText>}
         </LeftTopContainer>
         <MiddleTopContainer>
           <VsText>VS</VsText>
@@ -270,16 +265,11 @@ export const TopPanel: FC<SidePanelProps> = ({ onClickStart }) => {
                 height={198}
                 options={levelOptions}
                 selected={level.white.toString()}
-                onSelect={(item) =>
-                  setLevel({ ...level, white: Number(item.value) })
-                }
+                onSelect={(item) => setLevel({ ...level, white: Number(item.value) })}
               />
             </SelectWrapper>
           )}
-
-          {shouldShowWarning(Stone.WHITE) && (
-            <WarningText>* Tab may freeze</WarningText>
-          )}
+          {shouldShowWarning(Stone.WHITE) && <WarningText>Tab may freeze</WarningText>}
         </RightTopContainer>
       </TopContainer>
       <Divider />

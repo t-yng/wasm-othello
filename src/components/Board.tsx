@@ -8,7 +8,7 @@ import { colors } from "../style";
 const BoardWrapper = styled.div({
   borderRadius: 8,
   overflow: "hidden",
-  boxShadow: `0 0 0 3px ${colors.boardBorder}, 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(22, 101, 52, 0.3)`,
+  boxShadow: `0 0 0 4px ${colors.boardBorder}, 0 20px 60px rgba(0,0,0,0.7), 0 0 60px rgba(22, 101, 52, 0.4)`,
 });
 
 const style = css({
@@ -26,12 +26,7 @@ export interface BoardProps {
   handleClickCell: (idx: number) => void;
 }
 
-export const Board: FC<BoardProps> = ({
-  player,
-  cells,
-  avalableIndexes,
-  handleClickCell,
-}) => {
+export const Board: FC<BoardProps> = ({ player, cells, avalableIndexes, handleClickCell }) => {
   const renderCells = () => {
     return cells.map((cell, i) => {
       const avalable = avalableIndexes.includes(i);

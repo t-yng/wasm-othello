@@ -8,7 +8,8 @@ const globalStyles = {
   },
   body: {
     margin: 0,
-    backgroundColor: "#0F0F23",
+    background: "linear-gradient(160deg, #1A1040 0%, #0D0B1E 50%, #0F1428 100%)",
+    backgroundAttachment: "fixed",
     fontFamily: "'Chakra Petch', sans-serif",
     color: "#E2E8F0",
     minHeight: "100vh",

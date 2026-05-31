@@ -11,53 +11,49 @@ import {
   Legend,
   ChartData,
   ChartOptions,
+  ChartDataset,
 } from "chart.js";
 import { FC } from "react";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 import { AI } from "../../lib/ai/ai";
 import { Stone } from "../../lib/othello";
-import { colors } from "../../style/colors";
 
 export interface TimeLineChartProps {
   players: AI[];
 }
+
+// Medium slate background so both black (#0F172A) and white (#FFFFFF) lines are visible
+const CHART_BG = "#78909C";
 
 const ChartContainerStyle = css({
   width: "100%",
   maxHeight: 500,
   minHeight: 300,
   height: "calc(100vw*0.52)",
-  backgroundColor: "rgba(26, 26, 53, 0.9)",
+  backgroundColor: CHART_BG,
   borderRadius: 8,
   padding: "16px 8px 8px",
-  border: "1px solid rgba(124, 58, 237, 0.2)",
+  boxShadow: "0 4px 24px rgba(0, 0, 0, 0.3)",
 });
 
 export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
-  const getDatasets = () => {
-    const borderColors = {
-      [Stone.BLACK]: "#A78BFA",
-      [Stone.WHITE]: "#E2E8F0",
-    };
-
-    return players.map((player, i) => ({
-      label: `${player.stoneColor}_${player.name}`,
-      borderColor: borderColors[player.stone],
-      backgroundColor: borderColors[player.stone],
-      fill: false,
-      pointHitRadius: 10,
-      pointRadius: 4,
-      data: player.times,
-    }));
+  const getDatasets = (): ChartDataset<"line">[] => {
+    return players.map((player) => {
+      const isBlack = player.stone === Stone.BLACK;
+      return {
+        label: `${player.stoneColor}_${player.name}`,
+        borderColor: isBlack ? "#0F172A" : "#FFFFFF",
+        backgroundColor: isBlack ? "#0F172A" : "#FFFFFF",
+        pointBorderColor: isBlack ? "#475569" : "#CBD5E1",
+        pointBorderWidth: 1.5,
+        borderWidth: 2.5,
+        fill: false,
+        pointHitRadius: 10,
+        pointRadius: 4,
+        data: player.times,
+      };
+    });
   };
 
   const data: ChartData<"line"> = {
@@ -69,7 +65,9 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
     plugins: {
       legend: {
         labels: {
-          color: "rgba(226, 232, 240, 0.7)",
+          color: "#F1F5F9",
+          boxWidth: 20,
+          padding: 16,
         },
       },
       tooltip: {
@@ -90,13 +88,19 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
           callback: (value: any) => {
             return `${value} ms`;
           },
-          color: "rgba(226, 232, 240, 0.7)",
+          color: "#F1F5F9",
           maxTicksLimit: 10,
+        },
+        grid: {
+          color: "rgba(255, 255, 255, 0.15)",
         },
       },
       x: {
         ticks: {
-          color: "rgba(226, 232, 240, 0.7)",
+          color: "#F1F5F9",
+        },
+        grid: {
+          color: "rgba(255, 255, 255, 0.15)",
         },
       },
     },
@@ -105,12 +109,7 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
   return (
     <>
       <div css={ChartContainerStyle}>
-        <Line
-          data={data}
-          options={options}
-          width={undefined}
-          height={undefined}
-        ></Line>
+        <Line data={data} options={options} width={undefined} height={undefined}></Line>
       </div>
     </>
   );
