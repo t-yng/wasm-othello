@@ -15,19 +15,24 @@ export interface CellProps {
 
 const style = css({
   background: colors.green,
-  borderLeft: `1px solid ${colors.black2}`,
-  borderBottom: `1px solid ${colors.black2}`,
+  borderLeft: `1px solid ${colors.boardBorder}`,
+  borderBottom: `1px solid ${colors.boardBorder}`,
   boxSizing: "border-box",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   minWidth: 37.5,
-  maxWidth: 68,
+  maxWidth: 64,
   width: "calc(100vw*0.11)",
   minHeight: 37.5,
-  maxHeight: 68,
+  maxHeight: 64,
   height: "calc(100vw*0.11)",
   position: "relative",
+  cursor: "pointer",
+  transition: "background-color 0.15s ease",
+  "&:hover": {
+    backgroundColor: "#1A7A3E",
+  },
 });
 
 const LastIndexHighlight = styled.div({
@@ -36,19 +41,12 @@ const LastIndexHighlight = styled.div({
   width: "20%",
   height: "20%",
   position: "absolute",
+  boxShadow: "0 0 8px rgba(244, 63, 94, 0.8)",
 });
 
-export const Cell: FC<CellProps> = ({
-  idx,
-  cell,
-  player,
-  available,
-  handleClick,
-}) => {
+export const Cell: FC<CellProps> = ({ idx, cell, player, available, handleClick }) => {
   const getPutStone = () => {
-    return cell === othello.Cell.BLACK
-      ? othello.Stone.BLACK
-      : othello.Stone.WHITE;
+    return cell === othello.Cell.BLACK ? othello.Stone.BLACK : othello.Stone.WHITE;
   };
 
   const renderStone = () => {

@@ -10,6 +10,15 @@ export interface TimeLineChartContainerProps {
 
 const style = css({
   width: "100%",
+  marginTop: 24,
+});
+
+const headingStyle = css({
+  fontFamily: "'Russo One', sans-serif",
+  color: "#E2E8F0",
+  fontSize: "1.25rem",
+  letterSpacing: "0.05em",
+  marginBottom: 12,
 });
 
 export const TimeLineChartContainer: FC<TimeLineChartContainerProps> = ({
@@ -19,7 +28,7 @@ export const TimeLineChartContainer: FC<TimeLineChartContainerProps> = ({
 
   return (
     <div css={style}>
-      <h2>Processing Time</h2>
+      <h2 css={headingStyle}>Processing Time</h2>
       <TimeLineChart players={players} />
     </div>
   );

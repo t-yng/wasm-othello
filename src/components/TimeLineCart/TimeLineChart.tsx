@@ -36,14 +36,17 @@ const ChartContainerStyle = css({
   maxHeight: 500,
   minHeight: 300,
   height: "calc(100vw*0.52)",
-  backgroundColor: colors.green,
+  backgroundColor: "rgba(26, 26, 53, 0.9)",
+  borderRadius: 8,
+  padding: "16px 8px 8px",
+  border: "1px solid rgba(124, 58, 237, 0.2)",
 });
 
 export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
   const getDatasets = () => {
     const borderColors = {
-      [Stone.BLACK]: colors.black1,
-      [Stone.WHITE]: colors.white,
+      [Stone.BLACK]: "#A78BFA",
+      [Stone.WHITE]: "#E2E8F0",
     };
 
     return players.map((player, i) => ({
@@ -66,7 +69,7 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
     plugins: {
       legend: {
         labels: {
-          color: colors.black2,
+          color: "rgba(226, 232, 240, 0.7)",
         },
       },
       tooltip: {
@@ -87,13 +90,13 @@ export const TimeLineChart: FC<TimeLineChartProps> = ({ players }) => {
           callback: (value: any) => {
             return `${value} ms`;
           },
-          color: colors.black2,
+          color: "rgba(226, 232, 240, 0.7)",
           maxTicksLimit: 10,
         },
       },
       x: {
         ticks: {
-          color: colors.black2,
+          color: "rgba(226, 232, 240, 0.7)",
         },
       },
     },

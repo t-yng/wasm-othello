@@ -1,12 +1,19 @@
 import { FC } from "react";
 import { css } from "../style/styles";
+import styled from "@emotion/styled";
 import { Cell } from "./Cell";
 import * as othello from "../lib/othello";
 import { colors } from "../style";
 
+const BoardWrapper = styled.div({
+  borderRadius: 8,
+  overflow: "hidden",
+  boxShadow: `0 0 0 3px ${colors.boardBorder}, 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(22, 101, 52, 0.3)`,
+});
+
 const style = css({
-  borderTop: `1px solid ${colors.black2}`,
-  borderRight: `1px solid ${colors.black2}`,
+  borderTop: `1px solid ${colors.boardBorder}`,
+  borderRight: `1px solid ${colors.boardBorder}`,
   boxSizing: "border-box",
   display: "grid",
   gridTemplateColumns: "repeat(8, auto)",
@@ -41,5 +48,9 @@ export const Board: FC<BoardProps> = ({
     });
   };
 
-  return <div css={style}>{renderCells()}</div>;
+  return (
+    <BoardWrapper>
+      <div css={style}>{renderCells()}</div>
+    </BoardWrapper>
+  );
 };

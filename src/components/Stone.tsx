@@ -18,10 +18,11 @@ interface GhostCircleProps {
 
 const GhostCircle = styled.div((props: GhostCircleProps) => ({
   backgroundColor: props.color,
-  opacity: 0.3,
+  opacity: 0.25,
   borderRadius: "50%",
   height: "70%",
   width: "70%",
+  border: `2px solid ${props.color}`,
 }));
 
 const Container = styled.div({
@@ -42,17 +43,18 @@ const Circle = styled(motion.div)({
 });
 
 const Front = styled.div({
-  backgroundColor: colors.black1,
+  background: "radial-gradient(circle at 35% 35%, #3D3D5C, #0F0F1E)",
   position: "absolute",
   borderRadius: "50%",
   width: "100%",
   height: "100%",
   backfaceVisibility: "hidden",
   WebkitBackfaceVisibility: "hidden",
+  boxShadow: "0 4px 12px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,255,0.1)",
 });
 
 const Back = styled.div({
-  backgroundColor: colors.white,
+  background: "radial-gradient(circle at 35% 35%, #FFFFFF, #C8D3DC)",
   position: "absolute",
   borderRadius: "50%",
   width: "100%",
@@ -60,6 +62,7 @@ const Back = styled.div({
   transform: "rotateY(180deg)",
   backfaceVisibility: "hidden",
   WebkitBackfaceVisibility: "hidden",
+  boxShadow: "0 4px 12px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.8)",
 });
 
 export const Stone: FC<StoneProps> = ({ stone, ghost }) => {
@@ -68,7 +71,7 @@ export const Stone: FC<StoneProps> = ({ stone, ghost }) => {
   if (ghost) {
     return (
       <GhostCircle
-        color={stone === othello.Stone.BLACK ? colors.black1 : colors.white}
+        color={stone === othello.Stone.BLACK ? "rgba(15,15,30,0.8)" : "rgba(248,250,252,0.8)"}
       />
     );
   }
