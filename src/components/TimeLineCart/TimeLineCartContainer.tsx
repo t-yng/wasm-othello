@@ -2,7 +2,13 @@ import React from "react";
 import { css } from "../../style/styles";
 import { FC } from "react";
 import { AI } from "../../lib/ai/ai";
-import { TimeLineChart } from "./TimeLineChart";
+import dynamic from "next/dynamic";
+
+// chart.js is only needed once a CPU player exists, so keep it out of the initial bundle
+const TimeLineChart = dynamic(
+  () => import("./TimeLineChart").then((m) => m.TimeLineChart),
+  { ssr: false },
+);
 
 export interface TimeLineChartContainerProps {
   players: AI[];

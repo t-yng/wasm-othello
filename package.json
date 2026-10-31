@@ -10,7 +10,6 @@
     "dev": "next",
     "build": "yarn build:wasm && next build",
     "build:wasm": "sh bin/build-wasm.sh",
-    "export": "yarn build && next export",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
@@ -25,7 +24,7 @@
     "chart.js": "^4.5.1",
     "evergreen-ui": "^7.1.9",
     "framer-motion": "^12.40.0",
-    "next": "^16.2.11",
+    "next": "^16.4.3",
     "react": "^19.2.6",
     "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.2.6",

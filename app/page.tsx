@@ -1,3 +1,4 @@
+/** @jsxImportSource react */
 import { AppContainer } from '../src/components/AppContainer';
 
 const Home = () => <AppContainer />;
