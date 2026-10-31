@@ -33,7 +33,7 @@ const contentStyle = css({
 });
 
 export const Main = () => {
-  const [game] = useState(new othello.Game());
+  const [game] = useState(() => new othello.Game());
   const [player, setPlayer] = useState(game.player);
   const [cells, setCells] = useState(game.board.cells);
   const [availables, setAvailables] = useState(game.availableIndexes);

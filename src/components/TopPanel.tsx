@@ -140,26 +140,27 @@ const StartButton = styled.button({
   },
 });
 
-export const TopPanel: FC<SidePanelProps> = ({ onClickStart }) => {
-  const options: SelectMenuItem[] = [
-    {
-      label: "Human",
-      value: "human",
-    },
-    {
-      label: "CPU: wasm",
-      value: "wasm",
-    },
-    {
-      label: "CPU: js",
-      value: "js",
-    },
-  ];
+const options: SelectMenuItem[] = [
+  {
+    label: "Human",
+    value: "human",
+  },
+  {
+    label: "CPU: wasm",
+    value: "wasm",
+  },
+  {
+    label: "CPU: js",
+    value: "js",
+  },
+];
 
-  const levelOptions: SelectMenuItem[] = [...Array(6)].map((_, i) => ({
-    label: `Level: ${i + 1}`,
-    value: (i + 1).toString(),
-  }));
+const levelOptions: SelectMenuItem[] = [...Array(6)].map((_, i) => ({
+  label: `Level: ${i + 1}`,
+  value: (i + 1).toString(),
+}));
+
+export const TopPanel: FC<SidePanelProps> = ({ onClickStart }) => {
 
   const [playerType, setPlayerType] = useState<{
     black: PlayerType;
